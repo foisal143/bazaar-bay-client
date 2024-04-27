@@ -5,6 +5,9 @@
 .bg-primary {
   @apply bg-[#f85606];
 }
+.text-primary {
+  @apply text-[#f85606];
+}
 
 body {
   max-width: 1400px;

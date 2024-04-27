@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import img from '../../../img/logo.jpg';
+import { BsCart2 } from 'react-icons/bs';
 const Navbar = () => {
   return (
-    <nav className="w-full h-[80px] bg-primary text-white flex justify-between items-center px-5">
+    <nav className="w-full h-[80px] bg-primary text-white flex justify-between items-center px-5 lg:px-12">
       <div>
         <Link
           to="/"
@@ -18,22 +19,32 @@ const Navbar = () => {
       </div>
       <div>
         <form>
-          <div className="flex pe-5 gap-2 justify-between items-center bg-white rounded-md">
+          <div className="flex lg:w-[746px] pe-5 gap-2 justify-between items-center bg-white rounded-md">
             <input
               placeholder="Search your products"
               type="text"
-              className="h-10 w-full outline-[#f85606] lg:w-[746px] border px-5 py-2 rounded-md"
+              className="h-10 text-black w-full outline-none border px-5 py-2 rounded-md"
             />
-            <button className="text-black">Search</button>
+            <button className="text-black text-">Search</button>
           </div>
         </form>
       </div>
       <div>
-        <ul className="flex justify-center items-center gap-3">
-          <li>Login</li>
+        <ul className="flex justify-center items-center gap-5 font-semibold ">
+          <li>
+            {' '}
+            <Link to="/login">Login</Link>
+          </li>
           <li className="w-[1px] h-3 bg-white"></li>
-          <li>Sign Up</li>
-          <li>cart</li>
+          <li>
+            <Link to="/sign-up">Sign Up</Link>
+          </li>
+          <li>
+            <Link to="/my-carts" className="text-2xl">
+              {' '}
+              <BsCart2 />
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
