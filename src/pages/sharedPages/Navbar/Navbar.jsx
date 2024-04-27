@@ -27,13 +27,15 @@ const Navbar = () => {
         }`}
       >
         <form>
-          <div className="flex  lg:w-[746px] pe-5 gap-2 justify-between items-center bg-white rounded-md">
+          <div className="flex  lg:w-[746px]  pe-2 gap-2 justify-between items-center bg-white rounded-md">
             <input
               placeholder="Search your products"
               type="text"
               className="h-10 text-black w-full outline-none border px-5 py-2 rounded-md"
             />
-            <button className="text-black text-">Search</button>
+            <button className="text-black bg-red-200 rounded-md px-4 py-1 text-xl">
+              <CiSearch />
+            </button>
           </div>
         </form>
       </div>
