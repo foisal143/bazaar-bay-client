@@ -1,25 +1,33 @@
 import { Link } from 'react-router-dom';
 import img from '../../../img/logo.jpg';
 import { BsCart2 } from 'react-icons/bs';
+import { CiSearch } from 'react-icons/ci';
+import { HiOutlineXMark } from 'react-icons/hi2';
+import { useState } from 'react';
 const Navbar = () => {
+  const [showSearch, setShowSearch] = useState(false);
   return (
-    <nav className="w-full h-[80px] bg-primary text-white flex justify-between items-center px-5 lg:px-12">
+    <nav className="w-full h-[80px] bg-primary text-white flex justify-between items-center px-2 lg:px-12">
       <div>
         <Link
           to="/"
-          className="flex justify-center items-center gap-2 text-3xl font-bold"
+          className="flex justify-center items-center gap-2  text-xl lg:text-3xl font-bold"
         >
           <img
-            className="w-12 h-12 rounded-full"
+            className="md:w-12 md:h-12 w-8 h-8 rounded-full"
             src={img}
             alt="Bazaar Bay logo"
           />{' '}
           <span className="uppercase">Bazaar Bay</span>
         </Link>
       </div>
-      <div>
+      <div
+        className={`lg:static p-5 lg:p-0 bg-primary w-full lg:w-auto h-24 lg:bg-transparent lg:h-auto absolute -top-[100%] duration-200 ${
+          showSearch ? 'top-20 left-0' : '-top-[100%]'
+        }`}
+      >
         <form>
-          <div className="flex lg:w-[746px] pe-5 gap-2 justify-between items-center bg-white rounded-md">
+          <div className="flex  lg:w-[746px] pe-5 gap-2 justify-between items-center bg-white rounded-md">
             <input
               placeholder="Search your products"
               type="text"
@@ -30,7 +38,7 @@ const Navbar = () => {
         </form>
       </div>
       <div>
-        <ul className="flex justify-center items-center gap-5 font-semibold ">
+        <ul className="flex text-xs md:text-base justify-center items-center gap-5 font-semibold ">
           <li>
             {' '}
             <Link to="/login">Login</Link>
@@ -38,6 +46,12 @@ const Navbar = () => {
           <li className="w-[1px] h-3 bg-white"></li>
           <li>
             <Link to="/sign-up">Sign Up</Link>
+          </li>
+          <li
+            className="text-2xl lg:hidden cursor-pointer"
+            onClick={() => setShowSearch(!showSearch)}
+          >
+            {showSearch ? <HiOutlineXMark /> : <CiSearch />}
           </li>
           <li>
             <Link to="/my-carts" className="text-2xl">
