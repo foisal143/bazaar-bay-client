@@ -19,7 +19,7 @@ import categories from '../../../data/categoryData';
 const HeroSection = () => {
   return (
     <main className="flex my-5 justify-between gap-5 items-center">
-      <div className="hidden border border-slate-200 p-5  rounded-xl lg:block w-[300px] shadow-md">
+      <div className="hidden border border-slate-200 p-5  bg-white rounded-xl lg:block w-[300px] shadow-md">
         <ul className="font-semibold space-y-[13px] text-gray-500">
           {categories.map(category => (
             <li className="hover:text-[#f85606] text-xs" key={category.id}>
