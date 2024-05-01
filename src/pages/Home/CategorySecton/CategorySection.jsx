@@ -10,7 +10,7 @@ const CategorySection = () => {
       .then(res => res.json())
       .then(data => setCategories(data));
   }, []);
-  console.log(categories);
+
   return (
     <Container>
       <div className="my-12">

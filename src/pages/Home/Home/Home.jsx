@@ -1,6 +1,7 @@
 import Container from '../../../components/Container/Container';
 import CategorySection from '../CategorySecton/CategorySection';
 import ExperiencedSec from '../ExperiencedSec/ExperiencedSec';
+import ForYouProducts from '../ForYouProducts/ForYouProducts';
 import HeroSection from '../HeroSection/HeroSection';
 
 const Home = () => {
@@ -9,6 +10,7 @@ const Home = () => {
       <HeroSection />
       <ExperiencedSec />
       <CategorySection />
+      <ForYouProducts />
     </Container>
   );
 };

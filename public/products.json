@@ -1,0 +1,290 @@
+[
+  {
+    "name": "Wireless Bluetooth Earbuds",
+    "price": 49.99,
+    "category": "Electronics",
+    "reviews": [
+      {
+        "reviewer": "John Doe",
+        "rating": 4,
+        "comment": "Great sound quality and comfortable to wear.",
+        "image": "john_doe.jpg"
+      },
+      {
+        "reviewer": "Jane Smith",
+        "rating": 5,
+        "comment": "Amazing product! Highly recommended.",
+        "image": "jane_smith.jpg"
+      }
+    ],
+    "rating": 4.5,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAK3iQ-YvGr8qQp4VYBANrq1XF6M2MTykjfE8v2tVB-A&s",
+    "details": "Immerse yourself in your favorite music with these Wireless Bluetooth Earbuds. Offering high-quality sound and a comfortable, ergonomic design, these earbuds are perfect for long listening sessions or workouts. With Bluetooth 5.0 connectivity, you can enjoy seamless pairing with your devices, while the sweatproof design ensures durability during intense workouts. The earbuds provide up to 8 hours of playback time on a single charge, keeping you entertained throughout the day. Whether you're commuting, exercising, or simply relaxing at home, these earbuds deliver exceptional sound quality and convenience.",
+    "promoters": [
+      {
+        "name": "Tech Guru",
+        "image": "tech_guru.jpg"
+      },
+      {
+        "name": "Music Maven",
+        "image": "music_maven.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Smartphone Stand",
+    "price": 14.99,
+    "category": "Accessories",
+    "reviews": [
+      {
+        "reviewer": "Sarah Lee",
+        "rating": 5,
+        "comment": "Sturdy stand, perfect for watching videos!",
+        "image": "sarah_lee.jpg"
+      },
+      {
+        "reviewer": "David Johnson",
+        "rating": 4,
+        "comment": "Good product, but wish it had more angle adjustments.",
+        "image": "david_johnson.jpg"
+      }
+    ],
+    "rating": 4.5,
+    "image": "https://www.shopz.com.bd/wp-content/uploads/2022/05/UGREEN-Adjustable-Aluminum-Phone-Holder-1.jpg",
+    "details": "Keep your smartphone within easy reach with this Smartphone Stand. Whether you're watching videos, video chatting, or following a recipe in the kitchen, this stand provides a stable and adjustable platform for your device. Its aluminum construction ensures durability, while the rubberized grips prevent your phone from slipping or scratching. The stand offers multiple viewing angles, allowing you to find the perfect position for hands-free use. Compact and portable, it's ideal for home, office, or travel use. Enhance your smartphone experience with this versatile and practical stand.",
+    "promoters": [
+      {
+        "name": "Gadget Geek",
+        "image": "gadget_geek.jpg"
+      },
+      {
+        "name": "Tech Enthusiast",
+        "image": "tech_enthusiast.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Wireless Gaming Mouse",
+    "price": 39.99,
+    "category": "Electronics",
+    "reviews": [
+      {
+        "reviewer": "Michael Chang",
+        "rating": 5,
+        "comment": "Ergonomic design, smooth performance. Love it!",
+        "image": "michael_chang.jpg"
+      },
+      {
+        "reviewer": "Emily Johnson",
+        "rating": 4,
+        "comment": "Great mouse for gaming, but the software could be more intuitive.",
+        "image": "emily_johnson.jpg"
+      }
+    ],
+    "rating": 4.5,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqjKf_el8JyfdtDkv1dZf9TeH7E5nICsCksYXqivMuNQ&s",
+    "details": "Step up your gaming experience with this Wireless Gaming Mouse. Featuring an ergonomic design and smooth performance, this mouse is designed to enhance your gaming sessions. Its customizable RGB lighting adds a stylish touch to your setup, while adjustable DPI settings allow you to fine-tune sensitivity for precision aiming. With wireless connectivity, you can enjoy freedom of movement without worrying about tangled cables. Whether you're playing fast-paced shooters or strategy games, this mouse delivers reliable performance and comfort for hours of gaming enjoyment.",
+    "promoters": [
+      {
+        "name": "Gaming Guru",
+        "image": "gaming_guru.jpg"
+      },
+      {
+        "name": "Tech Reviewer",
+        "image": "tech_reviewer.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Portable Power Bank",
+    "price": 29.99,
+    "category": "Accessories",
+    "reviews": [
+      {
+        "reviewer": "Alex Patel",
+        "rating": 4,
+        "comment": "Compact design, good battery capacity. Very useful!",
+        "image": "alex_patel.jpg"
+      },
+      {
+        "reviewer": "Sophia Brown",
+        "rating": 5,
+        "comment": "Must-have accessory for travelers. Charges fast!",
+        "image": "sophia_brown.jpg"
+      }
+    ],
+    "rating": 4.5,
+    "image": "https://www.shopz.com.bd/wp-content/uploads/2019/03/Xiaomi-Power-Bank-Mi-10000mAh-2i-Dual-USB-Portable-Charger-Fast-Charge-18W-External-Battery-Powerbank.jpg.webp",
+    "details": "Stay powered up on the go with this Portable Power Bank. Featuring a sleek and compact design, this power bank is perfect for travel, commuting, or everyday use. With a capacity of 10000mAh, it can charge your smartphone, tablet, or other USB-powered devices multiple times on a single charge. The power bank includes multiple charging ports, allowing you to charge multiple devices simultaneously. Its built-in safeguards protect against overcharging, over-discharging, and short circuits, ensuring safe and reliable charging wherever you are.",
+    "promoters": [
+      {
+        "name": "Travel Blogger",
+        "image": "travel_blogger.jpg"
+      },
+      {
+        "name": "Tech Enthusiast",
+        "image": "tech_enthusiast.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Fitness Tracker Watch",
+    "price": 79.99,
+    "category": "Fitness",
+    "reviews": [
+      {
+        "reviewer": "Emma Wilson",
+        "rating": 5,
+        "comment": "Love the sleek design and accurate tracking features.",
+        "image": "emma_wilson.jpg"
+      },
+      {
+        "reviewer": "Ryan Thompson",
+        "rating": 4,
+        "comment": "Great for monitoring workouts, but could improve sleep tracking.",
+        "image": "ryan_thompson.jpg"
+      }
+    ],
+    "rating": 4.5,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrYSdeUToa7y2L3CqmT0B3YPFMRu_QnLA3qKAf5CU58Q&s",
+    "details": "Track your fitness goals with this Fitness Tracker Watch. Featuring a sleek and stylish design, this watch combines functionality with fashion. It offers comprehensive fitness tracking, including heart rate monitoring, step counting, calorie tracking, and sleep analysis. With its waterproof design, you can wear it while swimming, showering, or sweating it out at the gym. The watch syncs with your smartphone, allowing you to receive notifications, calls, and messages directly on your wrist. Whether you're a fitness enthusiast or just looking to lead a healthier lifestyle, this tracker watch is the perfect companion.",
+    "promoters": [
+      {
+        "name": "Fitness Influencer",
+        "image": "fitness_influencer.jpg"
+      },
+      {
+        "name": "Tech Enthusiast",
+        "image": "tech_enthusiast.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Stainless Steel Water Bottle",
+    "price": 19.99,
+    "category": "Kitchen",
+    "reviews": [
+      {
+        "reviewer": "Daniel White",
+        "rating": 5,
+        "comment": "Keeps drinks cold for hours. Durable and stylish!",
+        "image": "daniel_white.jpg"
+      },
+      {
+        "reviewer": "Ava Garcia",
+        "rating": 4,
+        "comment": "Great for on-the-go hydration, but wish it had more color options.",
+        "image": "ava_garcia.jpg"
+      }
+    ],
+    "rating": 4.5,
+    "image": "https://img.freepik.com/free-photo/white-reusable-water-bottle_53876-145536.jpg",
+    "details": "Stay hydrated throughout the day with this Stainless Steel Water Bottle. Crafted from durable stainless steel, this bottle is designed to keep your drinks cold for hours, making it perfect for hot summer days or intense workouts. Its leak-proof lid ensures no spills, while the wide mouth makes it easy to fill, pour, and clean. The bottle's sleek and minimalist design adds a touch of style to your daily routine, whether you're at the gym, office, or outdoors. With its eco-friendly construction and reusable design, it's a sustainable alternative to single-use plastic bottles.",
+    "promoters": [
+      {
+        "name": "Eco Warrior",
+        "image": "eco_warrior.jpg"
+      },
+      {
+        "name": "Lifestyle Blogger",
+        "image": "lifestyle_blogger.jpg"
+      }
+    ]
+  },
+  {
+    "name": "HD Webcam",
+    "price": 59.99,
+    "category": "Electronics",
+    "reviews": [
+      {
+        "reviewer": "Olivia Clark",
+        "rating": 4,
+        "comment": "Clear video quality, easy setup.",
+        "image": "olivia_clark.jpg"
+      },
+      {
+        "reviewer": "Noah Rodriguez",
+        "rating": 5,
+        "comment": "Great webcam for video conferences. No complaints!",
+        "image": "noah_rodriguez.jpg"
+      }
+    ],
+    "rating": 4.5,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3zqB2PTdubXlz54iTMC6vXuW--1MaVxzf4guLRlIYcQ&s",
+    "details": "Upgrade your video conferencing experience with this HD Webcam. Offering clear and crisp video quality, this webcam is perfect for virtual meetings, online classes, live streaming, and more. Its plug-and-play functionality ensures hassle-free setup, so you can start using it right away. With its built-in microphone, you can enjoy clear audio without the need for additional accessories. The webcam is compatible with all major operating systems and video conferencing platforms, making it versatile and convenient for use with any device. Whether you're working from home or connecting with friends and family, this webcam delivers professional-quality video and audio.",
+    "promoters": [
+      {
+        "name": "Tech Enthusiast",
+        "image": "tech_enthusiast.jpg"
+      },
+      {
+        "name": "Remote Worker",
+        "image": "remote_worker.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Organic Bamboo Cutting Board",
+    "price": 29.99,
+    "category": "Kitchen",
+    "reviews": [
+      {
+        "reviewer": "Sophie Taylor",
+        "rating": 5,
+        "comment": "Beautiful and sturdy cutting board. Love the eco-friendly materials!",
+        "image": "sophie_taylor.jpg"
+      },
+      {
+        "reviewer": "Jack Smith",
+        "rating": 4,
+        "comment": "Great size and quality, but would prefer deeper grooves for catching juices.",
+        "image": "jack_smith.jpg"
+      }
+    ],
+    "rating": 4.5,
+    "image": "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1701098454-71tC8fYX39L.jpg?crop=1xw:1.00xh;center,top&resize=980:*",
+    "details": "Prepare your meals in style with this Organic Bamboo Cutting Board. Crafted from sustainably sourced bamboo, this cutting board is not only eco-friendly but also durable and gentle on your knives. Its generous size provides ample space for chopping, slicing, and dicing your ingredients, while the built-in juice groove prevents liquids from spilling onto your countertops. The board's natural antibacterial properties make it hygienic and safe for food preparation. With its sleek and minimalist design, it doubles as a serving platter for cheese, charcuterie, and appetizers. Add a touch of elegance to your kitchen with this versatile and functional cutting board.",
+    "promoters": [
+      {
+        "name": "Home Chef",
+        "image": "home_chef.jpg"
+      },
+      {
+        "name": "Eco Warrior",
+        "image": "eco_warrior.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Reusable Silicone Food Storage Bags",
+    "price": 19.99,
+    "category": "Kitchen",
+    "reviews": [
+      {
+        "reviewer": "Liam Wilson",
+        "rating": 5,
+        "comment": "Great alternative to single-use plastic bags. Easy to clean and durable!",
+        "image": "liam_wilson.jpg"
+      },
+      {
+        "reviewer": "Emily Patel",
+        "rating": 4,
+        "comment": "Love the concept, but would prefer larger sizes for storing bulkier items.",
+        "image": "emily_patel.jpg"
+      }
+    ],
+    "rating": 4.5,
+    "image": "https://m.media-amazon.com/images/I/71jC5PvLz6L._AC_UF1000,1000_QL80_.jpg",
+    "details": "Reduce waste and save money with these Reusable Silicone Food Storage Bags. Made from food-grade silicone, these bags are a sustainable alternative to single-use plastic bags. They're perfect for storing leftovers, meal prepping, and packing lunches. The bags are freezer, microwave, and dishwasher safe, making them versatile and convenient for everyday use. Their airtight seal keeps food fresh longer, while their durable construction ensures they can withstand repeated use. Say goodbye to disposable plastic bags and make the switch to these eco-friendly and reusable storage solutions.",
+    "promoters": [
+      {
+        "name": "Zero Waste Advocate",
+        "image": "zero_waste_advocate.jpg"
+      },
+      {
+        "name": "Home Cook",
+        "image": "home_cook.jpg"
+      }
+    ]
+  }
+]
