@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
-import Container from '../../components/Container/Container';
+import Container from '../../../components/Container/Container';
 import Rating from 'react-rating';
 import { CiHeart, CiStar } from 'react-icons/ci';
 import { FaStar } from 'react-icons/fa';
 import { IoMdHeart } from 'react-icons/io';
 import { FiMinus } from 'react-icons/fi';
 import { GoPlus } from 'react-icons/go';
+import ReviewsSection from '../ReviewsSection/ReviewsSection';
 
 const ProductDetailsPage = () => {
   const product = useLoaderData();
@@ -39,13 +40,13 @@ const ProductDetailsPage = () => {
         <div
           className={
             isOpenZoom
-              ? 'flex justify-center items-center  absolute w-[50%] h-[500px]  overflow-hidden top-0 left-[350px] z-10 bg-white'
+              ? 'flex justify-center items-center transition-all duration-200  absolute w-[50%] h-[470px] shadow-md rounded-md overflow-hidden top-0 left-[320px] z-10 bg-white'
               : 'hidden'
           }
         >
           <img
             style={{ transform: `translate(${-xAxis}px,${-yAxis}px)` }}
-            className="scale-[1.7] w-full h-full"
+            className="scale-[5] w-full h-full"
             src={image}
             alt=""
           />
@@ -146,6 +147,7 @@ const ProductDetailsPage = () => {
         </div>
         <div className="bg-blue-500 flex-grow">hello man</div>
       </div>
+      <ReviewsSection rating={rating} reviews={reviews} />
     </Container>
   );
 };
