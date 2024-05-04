@@ -5,7 +5,7 @@ import useProducts from '../../../hooks/useProducts';
 
 const ForYouProducts = () => {
   const { products } = useProducts();
-  console.log(products);
+
   return (
     <Container>
       <h3 className="title-text">For You</h3>
@@ -14,7 +14,7 @@ const ForYouProducts = () => {
         <>
           <div className="grid grid-cols-3 mt-5 pb-12 md:grid-cols-4 lg:grid-cols-6 gap-3">
             {products.map(product => (
-              <ProductCard product={product} key={product.id} />
+              <ProductCard product={product} key={product._id} />
             ))}
           </div>
           {products.length > 12 && <Button text={'Load More'}></Button>}

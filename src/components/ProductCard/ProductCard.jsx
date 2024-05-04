@@ -3,11 +3,11 @@ import { CiStar } from 'react-icons/ci';
 import { FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 const ProductCard = ({ product }) => {
-  const { image, name, rating, price, reviews, id } = product;
+  const { image, name, rating, price, reviews, _id } = product;
   return (
     <Link
       className="shadow-sm hover:shadow-lg duration-200   "
-      to={`/product/${id}`}
+      to={`/product/${_id}`}
     >
       {' '}
       <div className="h-full">
