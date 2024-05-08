@@ -3,9 +3,11 @@ import img from '../../../img/logo.jpg';
 import { BsCart2 } from 'react-icons/bs';
 import { CiSearch } from 'react-icons/ci';
 import { HiOutlineXMark } from 'react-icons/hi2';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../../AtuhProvaider/AuthProvaider';
 const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
+  const { user } = useContext(AuthContext);
   return (
     <nav className="w-full h-[80px] bg-primary text-white flex justify-between items-center px-2 lg:px-12">
       <div>
@@ -61,6 +63,13 @@ const Navbar = () => {
               <BsCart2 />
             </Link>
           </li>
+          {user && (
+            <li className="avatar">
+              <div className="w-8 h-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <img src={user?.photoURL} />
+              </div>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

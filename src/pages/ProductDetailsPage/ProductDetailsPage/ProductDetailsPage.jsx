@@ -20,8 +20,8 @@ const ProductDetailsPage = () => {
   // handler for image zoom
   const handlerMouseEnter = e => {
     // console.log(e.clientX);
-    setXaxis(e.clientX - 200);
-    setyaxis(e.clientY - 200);
+    setXaxis(e.clientX - 400);
+    setyaxis(e.clientY - 400);
   };
 
   return (
@@ -46,7 +46,7 @@ const ProductDetailsPage = () => {
         >
           <img
             style={{ transform: `translate(${-xAxis}px,${-yAxis}px)` }}
-            className="scale-[5] w-full h-full"
+            className="scale-[5] w-[200%] h-[200%]"
             src={image}
             alt=""
           />

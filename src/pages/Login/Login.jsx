@@ -1,7 +1,19 @@
 import { Link } from 'react-router-dom';
 import Container from '../../components/Container/Container';
+import { useContext } from 'react';
+import { AuthContext } from '../../AtuhProvaider/AuthProvaider';
+import SocialLogin from '../../components/SocialLogin/SocialLogin';
 
 const Login = () => {
+  const { googleLogin } = useContext(AuthContext);
+
+  const handlerGoogleLogin = () => {
+    console.log('clicekd');
+    googleLogin().then(data => {
+      const loggedUser = data.user;
+      console.log(loggedUser);
+    });
+  };
   return (
     <Container>
       <div className="lg:w-10/12 mx-auto mt-8">
@@ -82,14 +94,7 @@ const Login = () => {
                   Sign in
                 </button>
               </div>
-              <div>
-                <button
-                  type="button"
-                  className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 mt-2"
-                >
-                  Sign in with Google
-                </button>
-              </div>
+              <SocialLogin />
             </form>
           </div>
         </div>

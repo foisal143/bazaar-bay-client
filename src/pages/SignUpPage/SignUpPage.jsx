@@ -1,7 +1,52 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Container from '../../components/Container/Container';
+import SocialLogin from '../../components/SocialLogin/SocialLogin';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../AtuhProvaider/AuthProvaider';
+import toast from 'react-hot-toast';
 
 const SignUpPage = () => {
+  const { createUser, updateUser } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  // submit form logic
+  const handlerFormSubmit = e => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const imageFile = form.image.files[0];
+    const email = form.email.value;
+    const password = form.password.value;
+
+    setLoading(true);
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    fetch(
+      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_key}`,
+      { method: 'POST', body: formData }
+    )
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          const image = data.data.url;
+          createUser(email, password).then(data => {
+            const loggedUser = data.user;
+            updateUser(loggedUser, name, image).then(data => {
+              toast.success('Sign Up success!');
+              navigate('/');
+            });
+          });
+        }
+        setLoading(false);
+      })
+      .catch(er => {
+        console.log(er.message);
+        setLoading(false);
+      });
+  };
+
   return (
     <Container>
       <div className="flex lg:w-10/12 mx-auto mt-8 justify-between items-center ">
@@ -16,7 +61,7 @@ const SignUpPage = () => {
       </div>
       <div className="lg:w-10/12 mx-auto  mt-5 p-6 bg-white rounded-md shadow-md">
         <div className="max-w-md mx-auto">
-          <form>
+          <form onSubmit={handlerFormSubmit}>
             <div className="mb-4">
               <label htmlFor="name" className="block text-gray-700">
                 Name
@@ -26,6 +71,17 @@ const SignUpPage = () => {
                 id="name"
                 name="name"
                 placeholder="Your Name"
+                className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="name" className="block text-gray-700">
+                Image
+              </label>
+              <input
+                type="file"
+                id="image"
+                name="image"
                 className="mt-1 p-2 w-full border border-gray-300 rounded-md"
               />
             </div>
@@ -57,17 +113,16 @@ const SignUpPage = () => {
               type="submit"
               className="bg-primary text-white py-2 px-4 rounded-md w-full hover:bg-primary-dark transition-colors duration-300"
             >
-              Sign Up
+              {loading ? (
+                <span className="loading loading-spinner text-white"></span>
+              ) : (
+                'Sign Up'
+              )}
             </button>
           </form>
           <div className="mt-6">
             <p className="text-gray-600">Or sign up with</p>
-            <button
-              type="button"
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 mt-2"
-            >
-              Sign in with Google
-            </button>
+            <SocialLogin />
           </div>
         </div>
       </div>
