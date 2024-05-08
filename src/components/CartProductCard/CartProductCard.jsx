@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import toast from 'react-hot-toast';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import { FaTrashAlt } from 'react-icons/fa';
@@ -88,9 +87,7 @@ const CartProductCard = ({ product, selcetAll, refetch }) => {
           <img className="w-24 lg:mx-0 mx-auto h-24" src={image} alt="" />
           <div className="text-center lg:text-start">
             <h3 className="text-xl font-semibold">{name}</h3>
-            <p>
-              <strong>Category:</strong> {category}
-            </p>
+            <p>{category}</p>
           </div>
         </div>
         <div className="text-center space-y-8">

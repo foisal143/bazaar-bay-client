@@ -3,6 +3,7 @@ import Container from '../../components/Container/Container';
 import useCartProducts from '../../hooks/useCartProducts';
 import { useState } from 'react';
 import CartProductCard from '../../components/CartProductCard/CartProductCard';
+import OrderSummary from '../../components/OrderSummary/OrderSummary';
 
 const MyCartPage = () => {
   const { cartProducts, refetch } = useCartProducts();
@@ -50,7 +51,9 @@ const MyCartPage = () => {
         </div>
 
         {/* procceed to checkout */}
-        <div className="col-span-2">checkout</div>
+        <div className="col-span-2 bg-white p-2">
+          <OrderSummary />
+        </div>
       </div>
     </Container>
   );
