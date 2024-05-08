@@ -6,6 +6,7 @@ import ProductDetailsPage from '../pages/ProductDetailsPage/ProductDetailsPage/P
 import Login from '../pages/Login/Login';
 import SignUpPage from '../pages/SignUpPage/SignUpPage';
 import MyFavoritePage from '../pages/MyFavoritePage/MyFavoritePage';
+import MyCartPage from '../pages/MyCartPage/MyCartPage';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: '/my-favorite',
         element: <MyFavoritePage />,
+      },
+      {
+        path: '/my-carts',
+        element: <MyCartPage />,
       },
     ],
   },

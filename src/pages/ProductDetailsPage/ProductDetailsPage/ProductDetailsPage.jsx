@@ -16,6 +16,7 @@ import {
 import { AuthContext } from '../../../AtuhProvaider/AuthProvaider';
 import Button from '../../../components/Button/Button';
 import toast from 'react-hot-toast';
+import useCartProducts from '../../../hooks/useCartProducts';
 
 const ProductDetailsPage = () => {
   const { user } = useContext(AuthContext);
@@ -26,7 +27,7 @@ const ProductDetailsPage = () => {
   const [isOpenZoom, setisOpenZoom] = useState(false);
   const [xAxis, setXaxis] = useState(0);
   const [yAxis, setyaxis] = useState(0);
-
+  const { refetch } = useCartProducts();
   // calculate the positive reviews percentage
   const reveiwPercentage = (product?.rating / 5) * 100;
 
@@ -75,6 +76,32 @@ const ProductDetailsPage = () => {
       });
   };
 
+  // handler add to cart product
+
+  const handlerAddToCart = prod => {
+    delete prod._id;
+    const addedProInfo = {
+      ...prod,
+      email: user?.email,
+      buyer: user?.displayName,
+      productId: product._id,
+    };
+    fetch('http://localhost:3000/cart-products', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(addedProInfo),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.insertedId) {
+          toast.success('Product Successfully added!');
+          refetch();
+        }
+      });
+  };
+
   return (
     <Container>
       <div className="  mt-1 text-sm breadcrumbs">
@@ -91,7 +118,7 @@ const ProductDetailsPage = () => {
         <div
           className={
             isOpenZoom
-              ? 'flex justify-center items-center transition-all duration-200  absolute w-[50%] h-[470px] shadow-md rounded-md overflow-hidden top-0 left-[320px] z-10 bg-white'
+              ? 'flex justify-center items-center transition-all duration-200  absolute lg:w-[50%] h-[470px] shadow-md rounded-md overflow-hidden top-[320px] lg:top-0 left-0 lg:left-[320px] z-10 bg-white'
               : 'hidden'
           }
         >
@@ -193,7 +220,10 @@ const ProductDetailsPage = () => {
               <button className="px-16 py-3 text-white bg-[#26abd4] duration-200  hover:bg-[#1ab3d7]">
                 Buy Now
               </button>
-              <button className="px-16 py-3 bg-primary text-white duration-200  hover:bg-[#e54d06]">
+              <button
+                onClick={() => handlerAddToCart(product)}
+                className="px-16 py-3 bg-primary text-white duration-200  hover:bg-[#e54d06]"
+              >
                 Add To Cart
               </button>
             </div>

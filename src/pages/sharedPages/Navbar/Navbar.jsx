@@ -8,9 +8,11 @@ import { AuthContext } from '../../../AtuhProvaider/AuthProvaider';
 import { CgProfile } from 'react-icons/cg';
 import { FaBox } from 'react-icons/fa';
 import { IoReturnDownBack } from 'react-icons/io5';
+import useCartProducts from '../../../hooks/useCartProducts';
 const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
   const { user, logOut } = useContext(AuthContext);
+  const { cartProducts } = useCartProducts();
 
   const handlerLogout = async () => {
     await logOut();
@@ -69,7 +71,12 @@ const Navbar = () => {
           >
             {showSearch ? <HiOutlineXMark /> : <CiSearch />}
           </li>
-          <li>
+          <li className="relative">
+            {cartProducts && (
+              <div className="absolute text-xs z-10 bg-white text-black w-4 h-4 flex justify-center items-center rounded-full -top-1 -right-2 ">
+                {cartProducts?.length}
+              </div>
+            )}
             <Link to="/my-carts" className="text-2xl">
               {' '}
               <BsCart2 />
