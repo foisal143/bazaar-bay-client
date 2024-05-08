@@ -5,6 +5,7 @@ import CategoryPage from '../pages/CategoryPage/CategoryPage/CategoryPage';
 import ProductDetailsPage from '../pages/ProductDetailsPage/ProductDetailsPage/ProductDetailsPage';
 import Login from '../pages/Login/Login';
 import SignUpPage from '../pages/SignUpPage/SignUpPage';
+import MyFavoritePage from '../pages/MyFavoritePage/MyFavoritePage';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: '/sign-up',
         element: <SignUpPage />,
+      },
+      {
+        path: '/my-favorite',
+        element: <MyFavoritePage />,
       },
     ],
   },

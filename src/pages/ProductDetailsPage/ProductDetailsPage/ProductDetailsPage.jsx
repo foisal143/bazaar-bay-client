@@ -15,6 +15,7 @@ import {
 } from 'react-icons/md';
 import { AuthContext } from '../../../AtuhProvaider/AuthProvaider';
 import Button from '../../../components/Button/Button';
+import toast from 'react-hot-toast';
 
 const ProductDetailsPage = () => {
   const { user } = useContext(AuthContext);
@@ -34,6 +35,44 @@ const ProductDetailsPage = () => {
     // console.log(e.clientX);
     setXaxis(e.clientX - 400);
     setyaxis(e.clientY - 400);
+  };
+
+  // handler for add to wishlist the product
+  const handlerAddToWishList = product => {
+    const wishlistProduct = {
+      ...product,
+      email: user?.email,
+      seller: user?.displayName,
+      productId: product._id,
+    };
+    setIsfavorite(true);
+    fetch('http://localhost:3000/wishlists', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(wishlistProduct),
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        if (data.insertedId) {
+          fetch(`http://localhost:3000/product/wishlist/${product._id}`, {
+            method: 'PATCH',
+            headers: {
+              'content-type': 'application/json',
+            },
+            body: JSON.stringify({ isWishlist: true }),
+          })
+            .then(res => res.json())
+            .then(data => {
+              console.log(data);
+              if (data.modifiedCount > 0) {
+                toast.success('Successfully added to wishlist !');
+              }
+            });
+        }
+      });
   };
 
   return (
@@ -97,12 +136,15 @@ const ProductDetailsPage = () => {
                   </span>
                 </p>
               </div>
+
+              {/* button for add to wishlist */}
               <div>
                 <button
+                  disabled={product?.isWishlist === true || isFavorite}
                   className="text-3xl"
-                  onClick={() => setIsfavorite(!isFavorite)}
+                  onClick={() => handlerAddToWishList(product)}
                 >
-                  {isFavorite ? (
+                  {product?.isWishlist || isFavorite ? (
                     <IoMdHeart className="text-red-500" />
                   ) : (
                     <CiHeart />
