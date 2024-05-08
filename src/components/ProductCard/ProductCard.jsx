@@ -12,7 +12,7 @@ const ProductCard = ({ product }) => {
       {' '}
       <div className="h-full">
         <img className=" h-32 lg:h-40 w-full" src={image} alt="" />
-        <div className="bg-white w-full h-[calc(100% - 128px)] p-2 space-y-2 lg:h-[calc(100%-160px)]">
+        <div className="bg-white w-full h-[calc(100%-128px)] p-2 space-y-2 lg:h-[calc(100%-160px)]">
           <h3 className="text-base font-semibold ">{name}</h3>
           <p className="text-xl font-semibold text-primary">${price}</p>
           <p className="text-xs flex  items-center gap-1">
