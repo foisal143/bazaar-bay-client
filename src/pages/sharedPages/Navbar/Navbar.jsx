@@ -7,7 +7,11 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../../../AtuhProvaider/AuthProvaider';
 const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
+
+  const handlerLogout = async () => {
+    await logOut();
+  };
   return (
     <nav className="w-full h-[80px] bg-primary text-white flex justify-between items-center px-2 lg:px-12">
       <div>
@@ -43,14 +47,19 @@ const Navbar = () => {
       </div>
       <div>
         <ul className="flex text-xs md:text-base justify-center items-center gap-5 font-semibold ">
-          <li>
-            {' '}
-            <Link to="/login">Login</Link>
-          </li>
-          <li className="w-[1px] h-3 bg-white"></li>
-          <li>
-            <Link to="/sign-up">Sign Up</Link>
-          </li>
+          {!user && (
+            <>
+              {' '}
+              <li>
+                {' '}
+                <Link to="/login">Login</Link>
+              </li>
+              <li className="w-[1px] h-3 bg-white"></li>
+              <li>
+                <Link to="/sign-up">Sign Up</Link>
+              </li>
+            </>
+          )}
           <li
             className="text-2xl lg:hidden cursor-pointer"
             onClick={() => setShowSearch(!showSearch)}
@@ -64,10 +73,36 @@ const Navbar = () => {
             </Link>
           </li>
           {user && (
-            <li className="avatar">
-              <div className="w-8 h-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img src={user?.photoURL} />
+            <li className="dropdown text-black dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 h-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src={user?.photoURL}
+                  />
+                </div>
               </div>
+              <ul
+                tabIndex={0}
+                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <a className="justify-between">
+                    Profile
+                    <span className="badge">New</span>
+                  </a>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  <button onClick={handlerLogout}>Logout</button>
+                </li>
+              </ul>
             </li>
           )}
         </ul>

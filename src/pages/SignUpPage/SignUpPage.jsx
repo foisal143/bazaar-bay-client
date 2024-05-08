@@ -33,7 +33,7 @@ const SignUpPage = () => {
           const image = data.data.url;
           createUser(email, password).then(data => {
             const loggedUser = data.user;
-            updateUser(loggedUser, name, image).then(data => {
+            updateUser(loggedUser, name, image).then(() => {
               toast.success('Sign Up success!');
               navigate('/');
             });

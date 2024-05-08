@@ -1,18 +1,29 @@
 import { Link } from 'react-router-dom';
 import Container from '../../components/Container/Container';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../AtuhProvaider/AuthProvaider';
 import SocialLogin from '../../components/SocialLogin/SocialLogin';
+import toast from 'react-hot-toast';
 
 const Login = () => {
-  const { googleLogin } = useContext(AuthContext);
-
-  const handlerGoogleLogin = () => {
-    console.log('clicekd');
-    googleLogin().then(data => {
-      const loggedUser = data.user;
-      console.log(loggedUser);
-    });
+  const { signInWithEmail } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const handlerFormSubmit = async e => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const form = e.target;
+      const email = form.email.value;
+      const password = form.password.value;
+      const data = await signInWithEmail(email, password);
+      console.log(data?.user);
+      setLoading(false);
+      toast.success('Sign In Success!');
+    } catch (error) {
+      console.log(error.message);
+      setLoading(false);
+      toast.error('Sign In Failed!');
+    }
   };
   return (
     <Container>
@@ -30,7 +41,7 @@ const Login = () => {
 
         <div className="mt-5 flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-md w-full space-y-8">
-            <form className="mt-8 space-y-6">
+            <form onSubmit={handlerFormSubmit} className="mt-8 space-y-6">
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="rounded-md shadow-sm -space-y-px">
                 <div>
@@ -91,7 +102,11 @@ const Login = () => {
                   type="submit"
                   className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary mt-4"
                 >
-                  Sign in
+                  {loading ? (
+                    <span className="loading loading-spinner text-white"></span>
+                  ) : (
+                    'Sign In'
+                  )}
                 </button>
               </div>
               <SocialLogin />

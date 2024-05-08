@@ -4,6 +4,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
   updateProfile,
 } from 'firebase/auth';
 import { GoogleAuthProvider } from 'firebase/auth/cordova';
@@ -41,6 +42,10 @@ const AuthProvaider = ({ children }) => {
     });
   };
 
+  const logOut = () => {
+    return signOut(auth);
+  };
+
   // user detector
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, currentUser => {
@@ -59,6 +64,7 @@ const AuthProvaider = ({ children }) => {
     createUser,
     updateUser,
     loading,
+    logOut,
   };
   return (
     <>
