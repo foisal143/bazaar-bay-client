@@ -1,15 +1,23 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Container from '../../../components/Container/Container';
 import Rating from 'react-rating';
 import { CiHeart, CiStar } from 'react-icons/ci';
 import { FaStar } from 'react-icons/fa';
-import { IoMdHeart } from 'react-icons/io';
+import { IoIosReturnLeft, IoMdHeart } from 'react-icons/io';
 import { FiMinus } from 'react-icons/fi';
 import { GoPlus } from 'react-icons/go';
 import ReviewsSection from '../ReviewsSection/ReviewsSection';
+import {
+  MdOutlineVerifiedUser,
+  MdVerified,
+  MdVerifiedUser,
+} from 'react-icons/md';
+import { AuthContext } from '../../../AtuhProvaider/AuthProvaider';
+import Button from '../../../components/Button/Button';
 
 const ProductDetailsPage = () => {
+  const { user } = useContext(AuthContext);
   const product = useLoaderData();
   const { name, image, category, rating, reviews, price } = product;
   const [isFavorite, setIsfavorite] = useState(false);
@@ -17,6 +25,10 @@ const ProductDetailsPage = () => {
   const [isOpenZoom, setisOpenZoom] = useState(false);
   const [xAxis, setXaxis] = useState(0);
   const [yAxis, setyaxis] = useState(0);
+
+  // calculate the positive reviews percentage
+  const reveiwPercentage = (product?.rating / 5) * 100;
+
   // handler for image zoom
   const handlerMouseEnter = e => {
     // console.log(e.clientX);
@@ -52,7 +64,7 @@ const ProductDetailsPage = () => {
           />
         </div>
         <div className=" lg:grid  bg-white p-2 grid-cols-6 gap-2 lg:w-[75%]">
-          <div className="col-span-2  relative shadow-md p-1 ">
+          <div className="col-span-2 w-fit h-fit relative shadow-md p-1 ">
             <img
               onMouseMove={handlerMouseEnter}
               onMouseEnter={() => setisOpenZoom(true)}
@@ -145,7 +157,59 @@ const ProductDetailsPage = () => {
             </div>
           </div>
         </div>
-        <div className="bg-blue-500 flex-grow">hello man</div>
+
+        {/* service and store details section */}
+
+        <div className=" bg-white flex-grow p-2">
+          <div>
+            <h4 className="font-semibold text-xl">Service</h4>
+            <ul className="mt-5 space-y-1 font-semibold">
+              <li className="flex items-center gap-2 text-primary">
+                <MdVerifiedUser /> Daraz Verified
+              </li>
+              <li className="flex items-center gap-2 text-indigo-600">
+                <MdVerified /> 100% Authentic from Trusted Brand
+              </li>
+              <li className="flex items-center gap-2 text-indigo-600">
+                <IoIosReturnLeft /> 14 days free & easy return
+              </li>
+              <li className="flex items-center gap-2 text-indigo-600">
+                {' '}
+                <MdOutlineVerifiedUser /> 1 Year Brand Warranty
+              </li>
+            </ul>
+          </div>
+
+          <div className="mt-5">
+            <h4 className="font-semibold text-xl">Sold By</h4>
+            <div className="flex mt-3 gap-2">
+              <img
+                className="w-8 h-8 rounded-full"
+                src={user?.photoURL}
+                alt=""
+              />
+              <strong>{user?.displayName}</strong>
+            </div>
+
+            <div className="flex gap-3 mt-2">
+              <div>
+                <h4 className="text-xs">Positive Seller Ratings</h4>
+                <span className="text-3xl">{reveiwPercentage}%</span>
+              </div>
+              <div>
+                <h4 className="text-xs">Ship on Time</h4>
+                <p className="text-3xl mt-4 ">100%</p>
+              </div>
+              <div>
+                <h4 className="text-xs">Chat Response Rate</h4>
+                <span className="text-xs">No Data found</span>
+              </div>
+            </div>
+            <div className="mt-5 text-center">
+              <Button text="Visit Store"></Button>
+            </div>
+          </div>
+        </div>
       </div>
       <ReviewsSection rating={rating} reviews={reviews} />
     </Container>

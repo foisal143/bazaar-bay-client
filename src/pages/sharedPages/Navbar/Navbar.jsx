@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
 import img from '../../../img/logo.jpg';
 import { BsCart2 } from 'react-icons/bs';
-import { CiSearch } from 'react-icons/ci';
+import { CiHeart, CiLogout, CiSearch, CiStar } from 'react-icons/ci';
 import { HiOutlineXMark } from 'react-icons/hi2';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../../AtuhProvaider/AuthProvaider';
+import { CgProfile } from 'react-icons/cg';
+import { FaBox } from 'react-icons/fa';
+import { IoReturnDownBack } from 'react-icons/io5';
 const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
   const { user, logOut } = useContext(AuthContext);
@@ -79,8 +82,9 @@ const Navbar = () => {
                 role="button"
                 className="btn btn-ghost btn-circle avatar"
               >
-                <div className="w-10 h-10 rounded-full">
+                <div className="w-8 h-8 rounded-full">
                   <img
+                    title={user?.displayName}
                     alt="Tailwind CSS Navbar component"
                     src={user?.photoURL}
                   />
@@ -88,19 +92,38 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                className="mt-3 z-[10] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 space-y-2"
               >
                 <li>
-                  <a className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
-                  </a>
+                  <Link className="flex gap-2" to="/profile">
+                    <CgProfile /> Manage My Profile
+                  </Link>
                 </li>
                 <li>
-                  <a>Settings</a>
+                  <Link className="flex gap-2" to="/my-orders">
+                    <FaBox /> My Orders
+                  </Link>
                 </li>
                 <li>
-                  <button onClick={handlerLogout}>Logout</button>
+                  <Link className="flex gap-2" to="/my-favorite">
+                    <CiHeart className="text-[18px]" /> My Wishlist & Followed
+                    Stores
+                  </Link>
+                </li>
+                <li>
+                  <Link className="flex gap-2" to="/my-reviews">
+                    <CiStar className="text-[18px]" /> My Reviews
+                  </Link>
+                </li>
+                <li>
+                  <Link className="flex gap-2" to="/my-returns">
+                    <IoReturnDownBack /> My Returns
+                  </Link>
+                </li>
+                <li>
+                  <button className="flex gap-2" onClick={handlerLogout}>
+                    <CiLogout /> Logout
+                  </button>
                 </li>
               </ul>
             </li>
