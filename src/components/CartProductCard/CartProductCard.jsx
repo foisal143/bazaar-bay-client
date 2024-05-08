@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+import { FaTrashAlt } from 'react-icons/fa';
 import { FiMinus } from 'react-icons/fi';
 import { GoPlus } from 'react-icons/go';
 
@@ -43,6 +47,35 @@ const CartProductCard = ({ product, selcetAll, refetch }) => {
         }
       });
   };
+
+  const handlerDeleteSingleProduct = id => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(result => {
+      fetch(`http://localhost:3000/cart-products/${id}`, {
+        method: 'DELETE',
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.deletedCount > 0) {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: 'Deleted!',
+                text: 'Your file has been deleted.',
+                icon: 'success',
+              });
+              refetch();
+            }
+          }
+        });
+    });
+  };
   return (
     <div
       className={`flex my-3 p-2 shadow-md gap-3 ${
@@ -60,8 +93,14 @@ const CartProductCard = ({ product, selcetAll, refetch }) => {
             </p>
           </div>
         </div>
-        <div className="text-center">
-          <p className="text-3xl text-primary">${price}</p>
+        <div className="text-center space-y-8">
+          <p className="text-xl text-primary">${price}</p>
+          <button
+            onClick={() => handlerDeleteSingleProduct(product?._id)}
+            className="px-5 py-2 bg-primary rounded-md text-white"
+          >
+            <FaTrashAlt />
+          </button>
         </div>
         <div className=" flex justify-center lg:justify-end items-start">
           <p className=" flex items-center gap-3">

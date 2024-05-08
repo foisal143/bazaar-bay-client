@@ -107,7 +107,7 @@ const MyFavoritePage = () => {
                       </div>
                     </div>
                     <div className="lg:text-center">
-                      <p className="text-3xl text-primary">${product?.price}</p>
+                      <p className="text-xl text-primary">${product?.price}</p>
                     </div>
                     <div className="lg:text-end mt-3 lg:mt-0 w-full justify-center lg:justify-normal flex lg:flex-col lg:items-end gap-3 space-y-2">
                       <button
