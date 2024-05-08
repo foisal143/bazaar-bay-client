@@ -7,6 +7,7 @@ import Login from '../pages/Login/Login';
 import SignUpPage from '../pages/SignUpPage/SignUpPage';
 import MyFavoritePage from '../pages/MyFavoritePage/MyFavoritePage';
 import MyCartPage from '../pages/MyCartPage/MyCartPage';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -37,11 +38,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/my-favorite',
-        element: <MyFavoritePage />,
+        element: (
+          <PrivateRoute>
+            <MyFavoritePage />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/my-carts',
-        element: <MyCartPage />,
+        element: (
+          <PrivateRoute>
+            <MyCartPage />
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -85,6 +85,7 @@ const ProductDetailsPage = () => {
       email: user?.email,
       buyer: user?.displayName,
       productId: product._id,
+      quantity,
     };
     fetch('http://localhost:3000/cart-products', {
       method: 'POST',
@@ -95,7 +96,7 @@ const ProductDetailsPage = () => {
     })
       .then(res => res.json())
       .then(data => {
-        if (data.insertedId) {
+        if (data.insertedId || data.modifiedCount > 0) {
           toast.success('Product Successfully added!');
           refetch();
         }

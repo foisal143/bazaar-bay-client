@@ -1,11 +1,55 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Container from '../../components/Container/Container';
 import useWishlist from '../../hooks/useWishlist';
 import { FaCartPlus, FaTrashAlt } from 'react-icons/fa';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../AtuhProvaider/AuthProvaider';
+import useCartProducts from '../../hooks/useCartProducts';
 
 const MyFavoritePage = () => {
   const [toggle, setToggle] = useState('wishlist');
-  const { wishlistProduct } = useWishlist();
+  const { wishlistProduct, refetch } = useWishlist();
+  const { refetch: cartProdRefeatch } = useCartProducts();
+  const { user } = useContext(AuthContext);
+  // handler delete
+  const handlerDelete = id => {
+    console.log(id);
+    fetch(`http://localhost:3000/products/wishlists/${id}`, {
+      method: 'DELETE',
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.deletedCount > 0) {
+          toast.success('Deleted Success!');
+          refetch();
+        }
+      });
+  };
+
+  const handlerAddToCart = prod => {
+    delete prod._id;
+    const addedProInfo = {
+      ...prod,
+      email: user?.email,
+      buyer: user?.displayName,
+
+      quantity: 1,
+    };
+    fetch('http://localhost:3000/cart-products', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(addedProInfo),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.insertedId || data.modifiedCount > 0) {
+          toast.success('Product Successfully added!');
+          cartProdRefeatch();
+        }
+      });
+  };
 
   return (
     <Container>
@@ -65,12 +109,17 @@ const MyFavoritePage = () => {
                     <div className="lg:text-center">
                       <p className="text-3xl text-primary">${product?.price}</p>
                     </div>
-                    <div className="lg:text-end space-y-2">
-                      <button className="px-5 py-2 bg-primary text-white rounded-md">
+                    <div className="lg:text-end mt-3 lg:mt-0 w-full justify-center lg:justify-normal flex lg:flex-col lg:items-end gap-3 space-y-2">
+                      <button
+                        onClick={() => handlerAddToCart(product)}
+                        className="px-5 lg:w-fit py-2 bg-primary text-white rounded-md"
+                      >
                         <FaCartPlus />
-                      </button>{' '}
-                      <br />
-                      <button className="bg-red-500 text-white px-5 py-2 rounded-md">
+                      </button>
+                      <button
+                        onClick={() => handlerDelete(product?._id)}
+                        className="bg-red-500 lg:w-fit text-white  px-5 py-2 rounded-md"
+                      >
                         <FaTrashAlt />
                       </button>
                     </div>
