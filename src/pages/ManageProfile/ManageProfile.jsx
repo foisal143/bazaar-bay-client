@@ -3,7 +3,8 @@ import Container from '../../components/Container/Container';
 import useSingleUser from '../../hooks/useSingleUser';
 
 const ManageProfile = () => {
-  const { singleUser, refetch } = useSingleUser();
+  const { singleUser } = useSingleUser();
+  const { name, email, gender, birthday } = singleUser;
   return (
     <Container>
       <h3 className="mt-5 title-text">
@@ -18,8 +19,18 @@ const ManageProfile = () => {
             </Link>
           </div>
           <div>
-            <h3 className="uppercase">{singleUser?.name}</h3>
-            <p>{singleUser?.email}</p>
+            <h3 className="uppercase">
+              <strong>{name}</strong>
+            </h3>
+            <div className="text-xs">
+              <p>{email}</p>
+              <p>{gender || ''}</p>
+              {birthday && (
+                <p>
+                  <strong>DOB:</strong> {birthday || ''}
+                </p>
+              )}
+            </div>
           </div>
         </div>
         <div className="bg-white p-5 space-y-5">
