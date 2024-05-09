@@ -30,7 +30,6 @@ const MyCartPage = () => {
       setSelectAll(filterById);
     }
   };
-  console.log(selcetAll);
 
   // set the all products to state
   useEffect(() => {

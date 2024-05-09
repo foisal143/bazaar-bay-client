@@ -5,7 +5,7 @@ import { FaCartPlus, FaTrashAlt } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../AtuhProvaider/AuthProvaider';
 import useCartProducts from '../../hooks/useCartProducts';
-import Cart from '../../components/FollowedStore/FollowedStore';
+import FollowedStore from '../../components/FollowedStore/FollowedStore';
 
 const MyFavoritePage = () => {
   const [toggle, setToggle] = useState('wishlist');
@@ -135,7 +135,7 @@ const MyFavoritePage = () => {
           )}
           {toggle === 'followed store' && (
             <div className="mt-8">
-              <Cart></Cart>
+              <FollowedStore />
             </div>
           )}
         </div>

@@ -8,6 +8,7 @@ import SignUpPage from '../pages/SignUpPage/SignUpPage';
 import MyFavoritePage from '../pages/MyFavoritePage/MyFavoritePage';
 import MyCartPage from '../pages/MyCartPage/MyCartPage';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import SearchProductsPage from '../pages/SearchProductsPage/SearchProductsPage';
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,12 @@ const router = createBrowserRouter([
             <MyCartPage />
           </PrivateRoute>
         ),
+      },
+      {
+        path: '/search-products/:name',
+        element: <SearchProductsPage />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/search-products/${params.name}`),
       },
     ],
   },

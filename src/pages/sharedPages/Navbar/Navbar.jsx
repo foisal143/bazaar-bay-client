@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import img from '../../../img/logo.jpg';
 import { BsCart2 } from 'react-icons/bs';
 import { CiHeart, CiLogout, CiSearch, CiStar } from 'react-icons/ci';
@@ -13,6 +13,14 @@ const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
   const { user, logOut } = useContext(AuthContext);
   const { cartProducts } = useCartProducts();
+  const navigate = useNavigate();
+
+  const handlerSearchProducts = e => {
+    e.preventDefault();
+    const searchValue = e.target.search.value;
+    navigate(`/search-products/${searchValue}`);
+    console.log(searchValue);
+  };
 
   const handlerLogout = async () => {
     await logOut();
@@ -37,11 +45,12 @@ const Navbar = () => {
           showSearch ? 'top-20 left-0' : '-top-[100%]'
         }`}
       >
-        <form>
+        <form onSubmit={handlerSearchProducts}>
           <div className="flex  lg:w-[746px]  pe-2 gap-2 justify-between items-center bg-white rounded-md">
             <input
               placeholder="Search your products"
-              type="text"
+              type="search"
+              name="search"
               className="h-10 text-black w-full outline-none border px-5 py-2 rounded-md"
             />
             <button className="text-black bg-red-200 rounded-md px-4 py-1 text-xl">
