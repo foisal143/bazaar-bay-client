@@ -9,6 +9,7 @@ import MyFavoritePage from '../pages/MyFavoritePage/MyFavoritePage';
 import MyCartPage from '../pages/MyCartPage/MyCartPage';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import SearchProductsPage from '../pages/SearchProductsPage/SearchProductsPage';
+import ManageProfile from '../pages/ManageProfile/ManageProfile';
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
         element: <SearchProductsPage />,
         loader: ({ params }) =>
           fetch(`http://localhost:3000/search-products/${params.name}`),
+      },
+      {
+        path: '/profile',
+        element: <ManageProfile />,
       },
     ],
   },

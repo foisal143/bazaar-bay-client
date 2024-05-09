@@ -28,7 +28,7 @@ const Navbar = () => {
     await logOut();
   };
   return (
-    <nav className="w-full h-[80px] bg-primary text-white flex justify-between items-center px-2 lg:px-12">
+    <nav className="w-full sticky top-0 z-20 h-[80px] bg-primary text-white flex justify-between items-center px-2 lg:px-12">
       <div>
         <Link
           to="/"
