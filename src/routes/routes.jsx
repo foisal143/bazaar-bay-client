@@ -10,6 +10,9 @@ import MyCartPage from '../pages/MyCartPage/MyCartPage';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import SearchProductsPage from '../pages/SearchProductsPage/SearchProductsPage';
 import ManageProfile from '../pages/ManageProfile/ManageProfile';
+import UserDashBoard from '../Layouts/UserDashBoard';
+import EditProfile from '../pages/UserDashboard/EditProfile/EditProfile';
+import EditAddress from '../pages/UserDashboard/EditAddress/EditAddress';
 
 const router = createBrowserRouter([
   {
@@ -38,14 +41,7 @@ const router = createBrowserRouter([
         path: '/sign-up',
         element: <SignUpPage />,
       },
-      {
-        path: '/my-favorite',
-        element: (
-          <PrivateRoute>
-            <MyFavoritePage />
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: '/my-carts',
         element: (
@@ -60,9 +56,47 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:3000/search-products/${params.name}`),
       },
+    ],
+  },
+  {
+    path: '/dashboard',
+    element: (
+      <PrivateRoute>
+        <UserDashBoard />
+      </PrivateRoute>
+    ),
+    children: [
       {
-        path: '/profile',
-        element: <ManageProfile />,
+        path: '/dashboard/profile',
+        element: (
+          <PrivateRoute>
+            <ManageProfile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/dashboard/personal/edit',
+        element: (
+          <PrivateRoute>
+            <EditProfile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/dashboard/address/edit',
+        element: (
+          <PrivateRoute>
+            <EditAddress />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/dashboard/my-favorite',
+        element: (
+          <PrivateRoute>
+            <MyFavoritePage />
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Container from '../../components/Container/Container';
 import useSingleUser from '../../hooks/useSingleUser';
 
@@ -12,7 +13,9 @@ const ManageProfile = () => {
         <div className="bg-white p-5 space-y-5">
           <div className="flex justify-between">
             <h3 className="text-xl font-semibold">Personal Profile</h3>{' '}
-            <button className="text-blue-500">Edit</button>
+            <Link to="/dashboard/personal/edit">
+              <button className="text-blue-500">Edit</button>
+            </Link>
           </div>
           <div>
             <h3 className="uppercase">{singleUser?.name}</h3>
@@ -22,7 +25,9 @@ const ManageProfile = () => {
         <div className="bg-white p-5 space-y-5">
           <div className="flex justify-between">
             <h3 className="text-xl font-semibold">Address Book</h3>{' '}
-            <button className="text-blue-500">Edit</button>
+            <Link to="/dashboard/address/edit">
+              <button className="text-blue-500">Edit</button>
+            </Link>
           </div>
           <p className="text-xs">DEFAULT DELIVERY ADDRESS</p>
           <div>

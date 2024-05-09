@@ -84,7 +84,7 @@ const MyFavoritePage = () => {
           </div>
           {toggle === 'wishlist' && (
             <div className="mt-8 space-y-3">
-              {wishlistProduct ? (
+              {wishlistProduct && wishlistProduct?.length > 0 ? (
                 wishlistProduct.map(product => (
                   <div
                     className="shadow-md text-center lg:text-start grid grid-cols-1 lg:grid-cols-3 p-2  "

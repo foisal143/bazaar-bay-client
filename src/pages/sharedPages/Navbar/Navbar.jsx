@@ -113,7 +113,7 @@ const Navbar = () => {
                 className="mt-3 z-[10] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 space-y-2"
               >
                 <li>
-                  <Link className="flex gap-2" to="/profile">
+                  <Link className="flex gap-2" to="/dashboard/profile">
                     <CgProfile /> Manage My Profile
                   </Link>
                 </li>
@@ -123,7 +123,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link className="flex gap-2" to="/my-favorite">
+                  <Link className="flex gap-2" to="/dashboard/my-favorite">
                     <CiHeart className="text-[18px]" /> My Wishlist & Followed
                     Stores
                   </Link>
