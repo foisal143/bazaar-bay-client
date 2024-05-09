@@ -34,8 +34,25 @@ const SignUpPage = () => {
           createUser(email, password).then(data => {
             const loggedUser = data.user;
             updateUser(loggedUser, name, image).then(() => {
-              toast.success('Sign Up success!');
-              navigate('/');
+              const userInfo = {
+                name,
+                email,
+              };
+
+              fetch(`http://localhost:3000/users/${email}`, {
+                method: 'PUT',
+                headers: {
+                  'content-type': 'application/json',
+                },
+                body: JSON.stringify(userInfo),
+              })
+                .then(res => res.json())
+                .then(data => {
+                  if (data.upsert) {
+                    toast.success('Sign Up success!');
+                    navigate('/');
+                  }
+                });
             });
           });
         }
