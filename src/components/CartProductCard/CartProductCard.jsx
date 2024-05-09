@@ -5,7 +5,12 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { FiMinus } from 'react-icons/fi';
 import { GoPlus } from 'react-icons/go';
 
-const CartProductCard = ({ product, selcetAll, refetch }) => {
+const CartProductCard = ({
+  product,
+  refetch,
+  handlerSelectSingleProduct,
+  selectAll,
+}) => {
   const { image, name, price, category, quantity } = product;
   const [loading, setLoading] = useState(false);
 
@@ -81,7 +86,13 @@ const CartProductCard = ({ product, selcetAll, refetch }) => {
         loading ? 'opacity-50' : 'opacity-100'
       }`}
     >
-      <input checked={selcetAll} type="checkbox" name="product" id="product" />{' '}
+      <input
+        onChange={e => handlerSelectSingleProduct(e, product)}
+        type="checkbox"
+        name="product"
+        id="product"
+        checked={selectAll.includes(product?._id)}
+      />{' '}
       <div className="grid grid-cols-1 lg:grid-cols-3 w-full justify-between gap-5">
         <div className=" lg:flex gap-3">
           <img className="w-24 lg:mx-0 mx-auto h-24" src={image} alt="" />

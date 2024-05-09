@@ -1,13 +1,44 @@
 import { CiTrash } from 'react-icons/ci';
 import Container from '../../components/Container/Container';
 import useCartProducts from '../../hooks/useCartProducts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CartProductCard from '../../components/CartProductCard/CartProductCard';
 import OrderSummary from '../../components/OrderSummary/OrderSummary';
 
 const MyCartPage = () => {
   const { cartProducts, refetch } = useCartProducts();
-  const [selcetAll, setSelectAll] = useState(false);
+  const [selcetAll, setSelectAll] = useState([]);
+  const [selectAllProducts, setSelectAllProducts] = useState([]);
+
+  // handler for select all products
+  const handlerSelectAllProduct = e => {
+    const checked = e.target.checked;
+    if (checked) {
+      setSelectAll(cartProducts.map(ele => ele?._id));
+    } else {
+      setSelectAll([]);
+    }
+  };
+
+  // handler for single prodcut selecet
+  const handlerSelectSingleProduct = (e, product) => {
+    const checked = e.target.checked;
+    if (checked) {
+      setSelectAll(prev => [...prev, product?._id]);
+    } else {
+      const filterById = selcetAll.filter(id => id !== product?._id);
+      setSelectAll(filterById);
+    }
+  };
+  console.log(selcetAll);
+
+  // set the all products to state
+  useEffect(() => {
+    const seletedProducts = cartProducts.filter(prod =>
+      selcetAll.includes(prod._id)
+    );
+    setSelectAllProducts(seletedProducts);
+  }, [cartProducts, selcetAll]);
 
   return (
     <Container>
@@ -24,9 +55,10 @@ const MyCartPage = () => {
           <div className="p-2 bg-white flex justify-between">
             <div className="cursor-pointer w-fit">
               <input
-                onChange={e => setSelectAll(e.target.checked)}
+                onChange={handlerSelectAllProduct}
                 type="checkbox"
                 name="select"
+                checked={cartProducts?.length === selcetAll?.length}
                 id="select"
               />{' '}
               <label className="cursor-pointer" htmlFor="select">
@@ -42,9 +74,10 @@ const MyCartPage = () => {
               cartProducts.map(product => (
                 <CartProductCard
                   key={product._id}
-                  selcetAll={selcetAll}
+                  handlerSelectSingleProduct={handlerSelectSingleProduct}
                   product={product}
                   refetch={refetch}
+                  selectAll={selcetAll}
                 />
               ))}
           </div>
@@ -52,7 +85,10 @@ const MyCartPage = () => {
 
         {/* procceed to checkout */}
         <div className="col-span-2 bg-white p-2">
-          <OrderSummary />
+          <OrderSummary
+            selectAll={selectAllProducts}
+            cartProducts={cartProducts}
+          />
         </div>
       </div>
     </Container>
