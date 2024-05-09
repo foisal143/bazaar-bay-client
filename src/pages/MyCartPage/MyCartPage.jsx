@@ -4,6 +4,8 @@ import useCartProducts from '../../hooks/useCartProducts';
 import { useEffect, useState } from 'react';
 import CartProductCard from '../../components/CartProductCard/CartProductCard';
 import OrderSummary from '../../components/OrderSummary/OrderSummary';
+import Swal from 'sweetalert2';
+import toast from 'react-hot-toast';
 
 const MyCartPage = () => {
   const { cartProducts, refetch } = useCartProducts();
@@ -31,6 +33,45 @@ const MyCartPage = () => {
     }
   };
 
+  // handler delete selected cards
+  const handlerDeleteSelectCart = () => {
+    if (selcetAll?.length > 0) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then(result => {
+        if (result.isConfirmed) {
+          console.log(selcetAll);
+          fetch(`http://localhost:3000/select-carts`, {
+            method: 'DELETE',
+            headers: {
+              'content-type': 'application/json',
+            },
+            body: JSON.stringify(selcetAll),
+          })
+            .then(res => res.json())
+            .then(data => {
+              console.log(data);
+              if (data.deletedCount > 0) {
+                refetch();
+                Swal.fire({
+                  title: 'Deleted!',
+                  text: 'Your file has been deleted.',
+                  icon: 'success',
+                });
+              }
+            });
+        }
+      });
+    } else {
+      toast.error('please select a product');
+    }
+  };
   // set the all products to state
   useEffect(() => {
     const seletedProducts = cartProducts.filter(prod =>
@@ -49,8 +90,8 @@ const MyCartPage = () => {
             : cartProducts?.length}
         </strong>
       </h3>
-      <div className="grid grid-cols-1 lg:grid-cols-6 gap-5 mt-8">
-        <div className="col-span-4">
+      <div className=" lg:grid grid-cols-1 lg:grid-cols-6  gap-5 mt-8">
+        <div className="lg:col-span-4">
           <div className="p-2 bg-white flex justify-between">
             <div className="cursor-pointer w-fit">
               <input
@@ -64,26 +105,35 @@ const MyCartPage = () => {
                 Select All
               </label>
             </div>
-            <button className="flex text-xs items-center gap-1 hover:text-error uppercase">
+            <button
+              onClick={handlerDeleteSelectCart}
+              className="flex text-xs items-center gap-1 hover:text-error uppercase"
+            >
               <CiTrash /> Delete
             </button>
           </div>
-          <div className="p-2 bg-white mt-4">
-            {cartProducts &&
-              cartProducts.map(product => (
-                <CartProductCard
-                  key={product._id}
-                  handlerSelectSingleProduct={handlerSelectSingleProduct}
-                  product={product}
-                  refetch={refetch}
-                  selectAll={selcetAll}
-                />
-              ))}
-          </div>
+          {cartProducts && cartProducts.length > 0 ? (
+            <div className="p-2 bg-white mt-4">
+              {cartProducts &&
+                cartProducts.map(product => (
+                  <CartProductCard
+                    key={product._id}
+                    handlerSelectSingleProduct={handlerSelectSingleProduct}
+                    product={product}
+                    refetch={refetch}
+                    selectAll={selcetAll}
+                  />
+                ))}
+            </div>
+          ) : (
+            <div className="text-center mt-24">
+              <h3 className="title-text">No Product Added</h3>
+            </div>
+          )}
         </div>
 
         {/* procceed to checkout */}
-        <div className="col-span-2 bg-white p-2">
+        <div className="lg:col-span-2  bg-white  p-2">
           <OrderSummary
             selectAll={selectAllProducts}
             cartProducts={cartProducts}

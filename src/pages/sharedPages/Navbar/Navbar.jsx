@@ -17,9 +17,11 @@ const Navbar = () => {
 
   const handlerSearchProducts = e => {
     e.preventDefault();
+    const form = e.target;
     const searchValue = e.target.search.value;
     navigate(`/search-products/${searchValue}`);
     console.log(searchValue);
+    form.reset();
   };
 
   const handlerLogout = async () => {
