@@ -4,7 +4,7 @@ import useSingleUser from '../../hooks/useSingleUser';
 
 const ManageProfile = () => {
   const { singleUser } = useSingleUser();
-  const { name, email, gender, birthday } = singleUser;
+  const { name, email, gender, birthday } = singleUser || {};
   return (
     <Container>
       <h3 className="mt-5 title-text">

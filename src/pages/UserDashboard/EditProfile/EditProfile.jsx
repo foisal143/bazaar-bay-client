@@ -1,10 +1,13 @@
 import toast from 'react-hot-toast';
 import useSingleUser from '../../../hooks/useSingleUser';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const EditProfile = () => {
   const { singleUser } = useSingleUser();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   const handlerFormSubmit = e => {
     e.preventDefault();
     const form = e.target;
@@ -34,6 +37,7 @@ const EditProfile = () => {
         if (data.modifiedCount > 0) {
           toast.success('User Updated Success!');
           setLoading(false);
+          navigate('/dashboard/profile');
         } else {
           setLoading(false);
           toast.success('User Updated failed!');
