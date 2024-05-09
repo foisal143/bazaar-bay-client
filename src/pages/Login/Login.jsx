@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Container from '../../components/Container/Container';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../AtuhProvaider/AuthProvaider';
@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 const Login = () => {
   const { signInWithEmail } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const handlerFormSubmit = async e => {
     e.preventDefault();
     try {
@@ -19,6 +20,7 @@ const Login = () => {
       console.log(data?.user);
       setLoading(false);
       toast.success('Sign In Success!');
+      navigate('/');
     } catch (error) {
       console.log(error.message);
       setLoading(false);

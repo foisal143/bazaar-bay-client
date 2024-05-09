@@ -83,7 +83,7 @@ const Navbar = () => {
             {showSearch ? <HiOutlineXMark /> : <CiSearch />}
           </li>
           <li className="relative">
-            {cartProducts && (
+            {cartProducts && user && (
               <div className="absolute text-xs z-10 bg-white text-black w-4 h-4 flex justify-center items-center rounded-full -top-1 -right-2 ">
                 {cartProducts?.length}
               </div>

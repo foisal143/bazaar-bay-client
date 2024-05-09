@@ -1,13 +1,33 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../AtuhProvaider/AuthProvaider';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const SocialLogin = () => {
   const { googleLogin } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   const handlerGoogleLogin = () => {
     googleLogin().then(data => {
       const loggedUser = data.user;
-      console.log(loggedUser);
+      const userInfo = {
+        name: loggedUser?.displayName,
+        email: loggedUser?.email,
+      };
+      fetch(`http://localhost:3000/users/${loggedUser?.email}`, {
+        method: 'PUT',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(userInfo),
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          if (data.upsertedId || data.matchedCount > 0) {
+            toast.success('Sign Up success!');
+            navigate('/');
+          }
+        });
     });
   };
   return (
