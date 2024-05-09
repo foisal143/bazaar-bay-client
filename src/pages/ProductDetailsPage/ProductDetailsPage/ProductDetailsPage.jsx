@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import Container from '../../../components/Container/Container';
 import Rating from 'react-rating';
 import { CiHeart, CiStar } from 'react-icons/ci';
@@ -17,6 +17,7 @@ import { AuthContext } from '../../../AtuhProvaider/AuthProvaider';
 import Button from '../../../components/Button/Button';
 import toast from 'react-hot-toast';
 import useCartProducts from '../../../hooks/useCartProducts';
+import Swal from 'sweetalert2';
 
 const ProductDetailsPage = () => {
   const { user } = useContext(AuthContext);
@@ -28,6 +29,7 @@ const ProductDetailsPage = () => {
   const [xAxis, setXaxis] = useState(0);
   const [yAxis, setyaxis] = useState(0);
   const { refetch } = useCartProducts();
+  const navigate = useNavigate();
   // calculate the positive reviews percentage
   const reveiwPercentage = (product?.rating / 5) * 100;
 
@@ -79,28 +81,44 @@ const ProductDetailsPage = () => {
   // handler add to cart product
 
   const handlerAddToCart = prod => {
-    delete prod._id;
-    const addedProInfo = {
-      ...prod,
-      email: user?.email,
-      buyer: user?.displayName,
-      productId: product._id,
-      quantity,
-    };
-    fetch('http://localhost:3000/cart-products', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(addedProInfo),
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.insertedId || data.modifiedCount > 0) {
-          toast.success('Product Successfully added!');
-          refetch();
+    if (user) {
+      delete prod._id;
+      const addedProInfo = {
+        ...prod,
+        email: user?.email,
+        buyer: user?.displayName,
+        productId: product._id,
+        quantity,
+      };
+      fetch('http://localhost:3000/cart-products', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(addedProInfo),
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.insertedId || data.modifiedCount > 0) {
+            toast.success('Product Successfully added!');
+            refetch();
+          }
+        });
+    } else {
+      Swal.fire({
+        title: 'Please Login?',
+        text: 'You should login first!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Login!',
+      }).then(result => {
+        if (result.isConfirmed) {
+          navigate('/login');
         }
       });
+    }
   };
 
   return (
