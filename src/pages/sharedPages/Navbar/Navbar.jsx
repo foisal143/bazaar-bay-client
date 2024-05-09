@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useRoutes } from 'react-router-dom';
 import img from '../../../img/logo.jpg';
 import { BsCart2 } from 'react-icons/bs';
 import { CiHeart, CiLogout, CiSearch, CiStar } from 'react-icons/ci';
@@ -6,7 +6,7 @@ import { HiOutlineXMark } from 'react-icons/hi2';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../../AtuhProvaider/AuthProvaider';
 import { CgProfile } from 'react-icons/cg';
-import { FaBox } from 'react-icons/fa';
+import { FaBars, FaBox } from 'react-icons/fa';
 import { IoReturnDownBack } from 'react-icons/io5';
 import useCartProducts from '../../../hooks/useCartProducts';
 const Navbar = () => {
@@ -14,6 +14,7 @@ const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const { cartProducts } = useCartProducts();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handlerSearchProducts = e => {
     e.preventDefault();
@@ -29,7 +30,19 @@ const Navbar = () => {
   };
   return (
     <nav className="w-full sticky top-0 z-20 h-[80px] bg-primary text-white flex justify-between items-center px-2 lg:px-12">
-      <div>
+      <div className="flex gap-5 items-center lg:block">
+        <div
+          className={
+            location?.pathname.startsWith('/dashboard') ? 'block' : 'hidden'
+          }
+        >
+          <label
+            htmlFor="my-drawer-2"
+            className=" cursor-pointer drawer-button lg:hidden"
+          >
+            <FaBars />
+          </label>
+        </div>
         <Link
           to="/"
           className="flex justify-center items-center gap-2  text-xl lg:text-3xl font-bold"
@@ -42,6 +55,7 @@ const Navbar = () => {
           <span className="uppercase">Bazaar Bay</span>
         </Link>
       </div>
+
       <div
         className={`lg:static p-5 lg:p-0 bg-primary w-full lg:w-auto h-24 lg:bg-transparent lg:h-auto absolute -top-[100%] duration-200 ${
           showSearch ? 'top-20 left-0' : '-top-[100%]'

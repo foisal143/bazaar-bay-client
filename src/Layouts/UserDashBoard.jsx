@@ -20,12 +20,6 @@ const UserDashBoard = () => {
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content px-5">
           <Outlet />
-          <label
-            htmlFor="my-drawer-2"
-            className="btn btn-primary drawer-button lg:hidden"
-          >
-            Open drawer
-          </label>
         </div>
         <div className="drawer-side">
           <label
@@ -33,7 +27,7 @@ const UserDashBoard = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu p-4 w-80 min-h-full bg-white text-base-content">
+          <ul className="menu p-4 w-80  min-h-[calc(100vh-80px)] lg:pt-5 pt-[100px] bg-white text-base-content">
             {/* Sidebar content here */}
 
             <li>
