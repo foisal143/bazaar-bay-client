@@ -63,8 +63,8 @@ const AuthProvaider = ({ children }) => {
         .then(data => {
           localStorage.setItem('bazzar-bay-ac-token', data.token);
         });
+      setLoading(false);
     });
-    setLoading(false);
 
     return () => unsub();
   }, [auth]);

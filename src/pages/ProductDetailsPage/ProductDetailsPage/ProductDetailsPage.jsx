@@ -18,6 +18,7 @@ import Button from '../../../components/Button/Button';
 import toast from 'react-hot-toast';
 import useCartProducts from '../../../hooks/useCartProducts';
 import Swal from 'sweetalert2';
+import useAxiosSecuire from '../../../hooks/useAxiosSecuire';
 
 const ProductDetailsPage = () => {
   const { user } = useContext(AuthContext);
@@ -30,6 +31,7 @@ const ProductDetailsPage = () => {
   const [yAxis, setyaxis] = useState(0);
   const { refetch } = useCartProducts();
   const navigate = useNavigate();
+  const axiosSecuire = useAxiosSecuire();
   // calculate the positive reviews percentage
   const reveiwPercentage = (product?.rating / 5) * 100;
 
@@ -49,33 +51,18 @@ const ProductDetailsPage = () => {
       productId: product._id,
     };
     setIsfavorite(true);
-    fetch('http://localhost:3000/wishlists', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(wishlistProduct),
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        if (data.insertedId) {
-          fetch(`http://localhost:3000/product/wishlist/${product._id}`, {
-            method: 'PATCH',
-            headers: {
-              'content-type': 'application/json',
-            },
-            body: JSON.stringify({ isWishlist: true }),
-          })
-            .then(res => res.json())
-            .then(data => {
-              console.log(data);
-              if (data.modifiedCount > 0) {
-                toast.success('Successfully added to wishlist !');
-              }
-            });
-        }
-      });
+
+    axiosSecuire.post('/wishlists', wishlistProduct).then(data => {
+      if (data.data.insertedId) {
+        axiosSecuire
+          .patch(`/product/wishlist/${product._id}`, { isWishlist: true })
+          .then(data => {
+            if (data.data.modifiedCount > 0) {
+              toast.success('Successfully added to wishlist !');
+            }
+          });
+      }
+    });
   };
 
   // handler add to cart product
@@ -90,20 +77,12 @@ const ProductDetailsPage = () => {
         productId: product._id,
         quantity,
       };
-      fetch('http://localhost:3000/cart-products', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(addedProInfo),
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.insertedId || data.modifiedCount > 0) {
-            toast.success('Product Successfully added!');
-            refetch();
-          }
-        });
+      axiosSecuire.post('/cart-products', addedProInfo).then(data => {
+        if (data.data.insertedId || data.data.modifiedCount > 0) {
+          toast.success('Product Successfully added!');
+          refetch();
+        }
+      });
     } else {
       Swal.fire({
         title: 'Please Login?',

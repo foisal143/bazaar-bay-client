@@ -2,11 +2,13 @@ import toast from 'react-hot-toast';
 import useSingleUser from '../../../hooks/useSingleUser';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAxiosSecuire from '../../../hooks/useAxiosSecuire';
 
 const EditProfile = () => {
   const { singleUser } = useSingleUser();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const axiosSecuire = useAxiosSecuire();
 
   const handlerFormSubmit = e => {
     e.preventDefault();
@@ -25,16 +27,11 @@ const EditProfile = () => {
       birthday,
     };
     setLoading(true);
-    fetch(`http://localhost:3000/user-personal-profile/${singleUser?._id}`, {
-      method: 'PATCH',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(userInfo),
-    })
-      .then(res => res.json())
+
+    axiosSecuire
+      .patch(`/user-personal-profile/${singleUser?._id}`, userInfo)
       .then(data => {
-        if (data.modifiedCount > 0) {
+        if (data.data.modifiedCount > 0) {
           toast.success('User Updated Success!');
           setLoading(false);
           navigate('/dashboard/profile');

@@ -4,6 +4,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 import { FaTrashAlt } from 'react-icons/fa';
 import { FiMinus } from 'react-icons/fi';
 import { GoPlus } from 'react-icons/go';
+import useAxiosSecuire from '../../hooks/useAxiosSecuire';
 
 const CartProductCard = ({
   product,
@@ -13,20 +14,15 @@ const CartProductCard = ({
 }) => {
   const { image, name, price, category, quantity } = product;
   const [loading, setLoading] = useState(false);
-
+  const axiosSecuire = useAxiosSecuire();
   const handlerIncreaseQuantity = id => {
     const newQuantity = quantity + 1;
     setLoading(true);
-    fetch(`http://localhost:3000/cart-products/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({ quantity: newQuantity }),
-    })
-      .then(res => res.json())
+
+    axiosSecuire
+      .patch(`/cart-products/${id}`, { quantity: newQuantity })
       .then(data => {
-        if (data.modifiedCount > 0) {
+        if (data.data.modifiedCount > 0) {
           setLoading(false);
           refetch();
         }
@@ -36,16 +32,10 @@ const CartProductCard = ({
   const handlerDecreaseQuantity = id => {
     const newQuantity = quantity - 1;
     setLoading(true);
-    fetch(`http://localhost:3000/cart-products/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({ quantity: newQuantity }),
-    })
-      .then(res => res.json())
+    axiosSecuire
+      .patch(`/cart-products/${id}`, { quantity: newQuantity })
       .then(data => {
-        if (data.modifiedCount > 0) {
+        if (data.data.modifiedCount > 0) {
           setLoading(false);
           refetch();
         }
@@ -62,22 +52,18 @@ const CartProductCard = ({
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
     }).then(result => {
-      fetch(`http://localhost:3000/cart-products/${id}`, {
-        method: 'DELETE',
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.deletedCount > 0) {
-            if (result.isConfirmed) {
-              Swal.fire({
-                title: 'Deleted!',
-                text: 'Your file has been deleted.',
-                icon: 'success',
-              });
-              refetch();
-            }
+      if (result.isConfirmed) {
+        axiosSecuire.delete(`/cart-products/${id}`).then(data => {
+          if (data.data.deletedCount > 0) {
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'Your file has been deleted.',
+              icon: 'success',
+            });
+            refetch();
           }
         });
+      }
     });
   };
   return (

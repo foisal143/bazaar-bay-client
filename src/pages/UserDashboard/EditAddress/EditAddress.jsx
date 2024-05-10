@@ -2,6 +2,7 @@ import toast from 'react-hot-toast';
 import useSingleUser from '../../../hooks/useSingleUser';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import useAxiosSecuire from '../../../hooks/useAxiosSecuire';
 
 const EditAddress = () => {
   const { singleUser } = useSingleUser();
@@ -9,6 +10,8 @@ const EditAddress = () => {
     singleUser || {};
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const axiosSecuire = useAxiosSecuire();
+
   const handlerFormSubmit = e => {
     e.preventDefault();
     const form = e.target;
@@ -25,22 +28,16 @@ const EditAddress = () => {
       address,
       userAddress,
     };
-    fetch(`http://localhost:3000/user-address-profile/${singleUser?._id}`, {
-      method: 'PATCH',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(userInfo),
-    })
-      .then(res => res.json())
+    setLoading(true);
+    axiosSecuire
+      .patch(`/user-address-profile/${singleUser?._id}`, userInfo)
       .then(data => {
-        if (data.modifiedCount > 0) {
+        if (data.data.modifiedCount > 0) {
           toast.success('User Updated Success!');
           setLoading(false);
           navigate('/dashboard/profile');
         } else {
           setLoading(false);
-          toast.success('User Updated failed!');
         }
       });
   };

@@ -2,10 +2,12 @@ import { useContext } from 'react';
 import { AuthContext } from '../../AtuhProvaider/AuthProvaider';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import useAxiosSecuire from '../../hooks/useAxiosSecuire';
 
 const SocialLogin = () => {
   const { googleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
+  const axiosSecuire = useAxiosSecuire();
   const handlerGoogleLogin = () => {
     googleLogin().then(data => {
       const loggedUser = data.user;
@@ -13,21 +15,13 @@ const SocialLogin = () => {
         name: loggedUser?.displayName,
         email: loggedUser?.email,
       };
-      fetch(`http://localhost:3000/users/${loggedUser?.email}`, {
-        method: 'PUT',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(userInfo),
-      })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-          if (data.upsertedId || data.matchedCount > 0) {
-            toast.success('Sign Up success!');
-            navigate('/');
-          }
-        });
+
+      axiosSecuire.put(`/users/${loggedUser?.email}`, userInfo).then(data => {
+        if (data.data.upsertedId || data.data.matchedCount > 0) {
+          toast.success('Sign Up success!');
+          navigate('/');
+        }
+      });
     });
   };
   return (

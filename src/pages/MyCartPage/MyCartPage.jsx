@@ -6,12 +6,13 @@ import CartProductCard from '../../components/CartProductCard/CartProductCard';
 import OrderSummary from '../../components/OrderSummary/OrderSummary';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
+import useAxiosSecuire from '../../hooks/useAxiosSecuire';
 
 const MyCartPage = () => {
-  const { cartProducts, refetch } = useCartProducts();
+  const { cartProducts, refetch, isLoading } = useCartProducts();
   const [selcetAll, setSelectAll] = useState([]);
   const [selectAllProducts, setSelectAllProducts] = useState([]);
-  console.log(cartProducts);
+  const axiosSecuire = useAxiosSecuire();
   // handler for select all products
   const handlerSelectAllProduct = e => {
     const checked = e.target.checked;
@@ -46,26 +47,17 @@ const MyCartPage = () => {
         confirmButtonText: 'Yes, delete it!',
       }).then(result => {
         if (result.isConfirmed) {
-          console.log(selcetAll);
-          fetch(`http://localhost:3000/select-carts`, {
-            method: 'DELETE',
-            headers: {
-              'content-type': 'application/json',
-            },
-            body: JSON.stringify(selcetAll),
-          })
-            .then(res => res.json())
-            .then(data => {
-              console.log(data);
-              if (data.deletedCount > 0) {
-                refetch();
-                Swal.fire({
-                  title: 'Deleted!',
-                  text: 'Your file has been deleted.',
-                  icon: 'success',
-                });
-              }
-            });
+          axiosSecuire.delete(`/select-carts?ids=${selcetAll}`).then(data => {
+            console.log(data);
+            if (data.data.deletedCount > 0) {
+              refetch();
+              Swal.fire({
+                title: 'Deleted!',
+                text: 'Your file has been deleted.',
+                icon: 'success',
+              });
+            }
+          });
         }
       });
     } else {
@@ -74,11 +66,13 @@ const MyCartPage = () => {
   };
   // set the all products to state
   useEffect(() => {
-    const seletedProducts = cartProducts.filter(prod =>
-      selcetAll.includes(prod._id)
-    );
-    setSelectAllProducts(seletedProducts);
-  }, [cartProducts, selcetAll]);
+    if (!isLoading) {
+      const seletedProducts = cartProducts.filter(prod =>
+        selcetAll.includes(prod._id)
+      );
+      setSelectAllProducts(seletedProducts);
+    }
+  }, [cartProducts, selcetAll, isLoading]);
 
   return (
     <Container>

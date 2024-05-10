@@ -4,12 +4,13 @@ import SocialLogin from '../../components/SocialLogin/SocialLogin';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../AtuhProvaider/AuthProvaider';
 import toast from 'react-hot-toast';
+import useAxiosSecuire from '../../hooks/useAxiosSecuire';
 
 const SignUpPage = () => {
   const { createUser, updateUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  const axiosSecuire = useAxiosSecuire();
   // submit form logic
   const handlerFormSubmit = e => {
     e.preventDefault();
@@ -38,21 +39,13 @@ const SignUpPage = () => {
                 name,
                 email,
               };
-
-              fetch(`http://localhost:3000/users/${email}`, {
-                method: 'PUT',
-                headers: {
-                  'content-type': 'application/json',
-                },
-                body: JSON.stringify(userInfo),
-              })
-                .then(res => res.json())
-                .then(data => {
-                  if (data.upsert) {
-                    toast.success('Sign Up success!');
-                    navigate('/');
-                  }
-                });
+              axiosSecuire.put(`/users/${email}`, userInfo).then(data => {
+                console.log(data);
+                if (data.data.upsertedId) {
+                  toast.success('Sign Up success!');
+                  navigate('/');
+                }
+              });
             });
           });
         }

@@ -6,25 +6,28 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../../AtuhProvaider/AuthProvaider';
 import useCartProducts from '../../hooks/useCartProducts';
 import FollowedStore from '../../components/FollowedStore/FollowedStore';
+import useAxiosSecuire from '../../hooks/useAxiosSecuire';
 
 const MyFavoritePage = () => {
   const [toggle, setToggle] = useState('wishlist');
   const { wishlistProduct, refetch } = useWishlist();
   const { refetch: cartProdRefeatch } = useCartProducts();
   const { user } = useContext(AuthContext);
+  const axiosSecuire = useAxiosSecuire();
   // handler delete
   const handlerDelete = id => {
-    console.log(id);
-    fetch(`http://localhost:3000/products/wishlists/${id}`, {
-      method: 'DELETE',
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.deletedCount > 0) {
-          toast.success('Deleted Success!');
-          refetch();
-        }
-      });
+    axiosSecuire.delete(`/products/wishlists/${id}`).then(data => {
+      if (data.data.deletedCount > 0) {
+        axiosSecuire
+          .patch(`/product/wishlist/${id}`, { isWishlist: false })
+          .then(data => {
+            if (data.data.modifiedCount > 0) {
+              toast.success('Deleted Success!');
+              refetch();
+            }
+          });
+      }
+    });
   };
 
   const handlerAddToCart = prod => {
@@ -36,20 +39,13 @@ const MyFavoritePage = () => {
 
       quantity: 1,
     };
-    fetch('http://localhost:3000/cart-products', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(addedProInfo),
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.insertedId || data.modifiedCount > 0) {
-          toast.success('Product Successfully added!');
-          cartProdRefeatch();
-        }
-      });
+
+    axiosSecuire.post('cart-products', addedProInfo).then(data => {
+      if (data.data.insertedId || data.data.modifiedCount > 0) {
+        toast.success('Already added quantity updated!');
+        cartProdRefeatch();
+      }
+    });
   };
 
   return (
