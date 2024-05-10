@@ -13,6 +13,7 @@ import ManageProfile from '../pages/ManageProfile/ManageProfile';
 import UserDashBoard from '../Layouts/UserDashBoard';
 import EditProfile from '../pages/UserDashboard/EditProfile/EditProfile';
 import EditAddress from '../pages/UserDashboard/EditAddress/EditAddress';
+import BuyProductPage from '../pages/BuyProductPage/BuyProductPage';
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,16 @@ const router = createBrowserRouter([
         element: <SearchProductsPage />,
         loader: ({ params }) =>
           fetch(`http://localhost:3000/search-products/${params.name}`),
+      },
+      {
+        path: '/buy-products/:id',
+        element: (
+          <PrivateRoute>
+            <BuyProductPage />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/products/${params.id}`),
       },
     ],
   },

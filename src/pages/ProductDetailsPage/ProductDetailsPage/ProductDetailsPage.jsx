@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import Container from '../../../components/Container/Container';
 import Rating from 'react-rating';
 import { CiHeart, CiStar } from 'react-icons/ci';
@@ -236,9 +236,13 @@ const ProductDetailsPage = () => {
             </div>
             {/* buy now and add to cart button */}
             <div className="flex gap-3 pt-5">
-              <button className="px-16 py-3 text-white bg-[#26abd4] duration-200  hover:bg-[#1ab3d7]">
-                Buy Now
-              </button>
+              <Link to={`/buy-products/${product?._id}`}>
+                {' '}
+                <button className="px-16 py-3 text-white bg-[#26abd4] duration-200  hover:bg-[#1ab3d7]">
+                  Buy Now
+                </button>
+              </Link>
+
               <button
                 onClick={() => handlerAddToCart(product)}
                 className="px-16 py-3 bg-primary text-white duration-200  hover:bg-[#e54d06]"

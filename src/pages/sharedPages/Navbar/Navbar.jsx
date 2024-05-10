@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate, useRoutes } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import img from '../../../img/logo.jpg';
 import { BsCart2 } from 'react-icons/bs';
 import { CiHeart, CiLogout, CiSearch, CiStar } from 'react-icons/ci';
@@ -12,7 +12,7 @@ import useCartProducts from '../../../hooks/useCartProducts';
 const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
   const { user, logOut } = useContext(AuthContext);
-  const { cartProducts } = useCartProducts();
+  const { cartProducts, refetch } = useCartProducts();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -21,13 +21,14 @@ const Navbar = () => {
     const form = e.target;
     const searchValue = e.target.search.value;
     navigate(`/search-products/${searchValue}`);
-    console.log(searchValue);
     form.reset();
   };
 
   const handlerLogout = async () => {
     await logOut();
+    refetch();
   };
+
   return (
     <nav className="w-full sticky top-0 z-20 h-[80px] bg-primary text-white flex justify-between items-center px-2 lg:px-12">
       <div className="flex gap-5 items-center lg:block">
