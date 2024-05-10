@@ -11,7 +11,7 @@ const MyCartPage = () => {
   const { cartProducts, refetch } = useCartProducts();
   const [selcetAll, setSelectAll] = useState([]);
   const [selectAllProducts, setSelectAllProducts] = useState([]);
-
+  console.log(cartProducts);
   // handler for select all products
   const handlerSelectAllProduct = e => {
     const checked = e.target.checked;

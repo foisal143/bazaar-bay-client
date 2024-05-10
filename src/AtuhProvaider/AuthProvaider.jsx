@@ -51,8 +51,20 @@ const AuthProvaider = ({ children }) => {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser);
-      setLoading(false);
+      // fech the jwt verify token
+      fetch('http://localhost:3000/jwt', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({ email: currentUser?.email }),
+      })
+        .then(res => res.json())
+        .then(data => {
+          localStorage.setItem('bazzar-bay-ac-token', data.token);
+        });
     });
+    setLoading(false);
 
     return () => unsub();
   }, [auth]);

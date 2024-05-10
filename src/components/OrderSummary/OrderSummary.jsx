@@ -52,12 +52,17 @@ const OrderSummary = ({ selectAll }) => {
         <p className="flex justify-between ">
           <span>Subtotal({totoalQuantity})</span> <span>${subTotal}</span>
         </p>
-        <p className="flex justify-between ">
-          <span>Shipping Cost</span> <span>${shipingCostValue}</span>
-        </p>
-        <p className="flex justify-between ">
-          <span>Shipping Cost Discount</span> <span>${disCountPriceValue}</span>
-        </p>
+        {selectAll?.length > 0 && (
+          <>
+            <p className="flex justify-between ">
+              <span>Shipping Cost</span> <span>${shipingCostValue}</span>
+            </p>
+            <p className="flex justify-between ">
+              <span>Shipping Cost Discount</span>{' '}
+              <span>${disCountPriceValue}</span>
+            </p>
+          </>
+        )}
 
         <div className="my-5">
           <form onSubmit={handlerCupon} className="flex gap-1" action="">

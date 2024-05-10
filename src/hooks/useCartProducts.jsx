@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { useContext } from 'react';
 import { AuthContext } from '../AtuhProvaider/AuthProvaider';
+import useAxiosSecuire from './useAxiosSecuire';
 
 const useCartProducts = () => {
   const { user, loading } = useContext(AuthContext);
+  const axiosSecuire = useAxiosSecuire();
   const {
     data: cartProducts,
     refetch,
@@ -12,10 +14,9 @@ const useCartProducts = () => {
     queryKey: ['cart'],
     enabled: !loading,
     queryFn: async () => {
-      const res = await fetch(
-        `http://localhost:3000/cart-products/${user?.email}`
-      );
-      return await res.json();
+      const data = await axiosSecuire.get(`/cart-products/${user?.email}`);
+
+      return data.data || [];
     },
   });
   return { cartProducts, isLoading, refetch };
