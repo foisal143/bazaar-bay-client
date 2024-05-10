@@ -20,26 +20,28 @@ const BuyProductPage = () => {
             <p>Bill to the same address</p>
             <p>Email To {email}</p>
           </div>
-          <div className="bg-white p-5 shadow-md space-y-3 rounded-md text-xs">
-            <div className="flex justify-between items-center">
-              <div className="flex gap-3">
-                <img className="w-12 h-12" src={product?.image} alt="" />
-                <div>
-                  <h3 className="text-sm font-semibold">{product?.name}</h3>
-                  <p>{product?.category}</p>
+          {product && (
+            <div className="bg-white p-5 shadow-md space-y-3 rounded-md text-xs">
+              <div className="flex justify-between items-center">
+                <div className="flex gap-3">
+                  <img className="w-12 h-12" src={product?.image} alt="" />
+                  <div>
+                    <h3 className="text-sm font-semibold">{product?.name}</h3>
+                    <p>{product?.category}</p>
+                  </div>
                 </div>
+                <p>Qun: {product?.quntity || 1}</p>
+                <p className="font-semibold">${product?.price}</p>
               </div>
-              <p>Qun: {product?.quntity || 1}</p>
-              <p className="font-semibold">${product?.price}</p>
+              <hr />
+              <div className="flex justify-between ">
+                <p>Stander Delivary ${delivaryChare}</p>
+                <p className="text-xl">
+                  Total: <span className="text-primary"> ${total}</span>
+                </p>
+              </div>
             </div>
-            <hr />
-            <div className="flex justify-between ">
-              <p>Stander Delivary ${delivaryChare}</p>
-              <p className="text-xl">
-                Total: <span className="text-primary"> ${total}</span>
-              </p>
-            </div>
-          </div>
+          )}
         </div>
         <div className="bg-white p-5 shadow-md  rounded-md lg:w-[35%]">
           <h3>Order Summary</h3>

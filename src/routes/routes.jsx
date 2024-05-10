@@ -14,6 +14,7 @@ import UserDashBoard from '../Layouts/UserDashBoard';
 import EditProfile from '../pages/UserDashboard/EditProfile/EditProfile';
 import EditAddress from '../pages/UserDashboard/EditAddress/EditAddress';
 import BuyProductPage from '../pages/BuyProductPage/BuyProductPage';
+import PaymentPage from '../pages/PaymentPage/PaymentPage';
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`http://localhost:3000/products/${params.id}`),
+      },
+      {
+        path: '/payment/:price',
+        element: <PaymentPage />,
       },
     ],
   },

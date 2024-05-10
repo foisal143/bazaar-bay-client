@@ -1,6 +1,9 @@
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const OrderSummary = ({ selectAll }) => {
+  const navigate = useNavigate();
+
   // todo: set to the product discount and shipping cost
   // calculate the all price
   const subTotalValue = selectAll.reduce(
@@ -45,6 +48,14 @@ const OrderSummary = ({ selectAll }) => {
     }
   };
 
+  const hanlderNavigateToPayment = () => {
+    if (!selectAll?.length > 0) {
+      toast.error('Please select a product!');
+    } else {
+      navigate(`/payment/${total}`);
+    }
+  };
+
   return (
     <div className="w-full h-[280px]">
       <h3 className=" font-semibold text-xl">Order Summary</h3>
@@ -83,7 +94,11 @@ const OrderSummary = ({ selectAll }) => {
         <p className="flex font-bold  justify-between ">
           <strong>Total</strong> <span className="text-primary">${total}</span>
         </p>
-        <button className="bg-primary w-full px-8 py-2 rounded-md text-white mt-5">
+
+        <button
+          onClick={hanlderNavigateToPayment}
+          className="bg-primary w-full px-8 py-2 rounded-md text-white mt-5"
+        >
           Procceed To Checkout (${total})
         </button>
       </div>
