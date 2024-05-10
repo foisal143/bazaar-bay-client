@@ -34,7 +34,7 @@ const ProductDetailsPage = () => {
   const axiosSecuire = useAxiosSecuire();
   // calculate the positive reviews percentage
   const reveiwPercentage = (product?.rating / 5) * 100;
-
+  console.log(product);
   // handler for image zoom
   const handlerMouseEnter = e => {
     // console.log(e.clientX);
@@ -69,7 +69,6 @@ const ProductDetailsPage = () => {
 
   const handlerAddToCart = prod => {
     if (user) {
-      delete prod._id;
       const addedProInfo = {
         ...prod,
         email: user?.email,
