@@ -78,6 +78,7 @@ const AuthProvaider = ({ children }) => {
     updateUser,
     loading,
     logOut,
+    auth,
   };
   return (
     <>

@@ -9,6 +9,8 @@ import { useContext } from 'react';
 import { AuthContext } from '../AtuhProvaider/AuthProvaider';
 
 import { ImSpoonKnife } from 'react-icons/im';
+import useAdmin from '../hooks/useAdmin';
+import useSeller from '../hooks/useSeller';
 const UserDashBoard = () => {
   const userLinks = (
     <>
@@ -65,7 +67,7 @@ const UserDashBoard = () => {
     </>
   );
 
-  const marchentLinks = (
+  const sellerLinks = (
     <>
       <li>
         <Link className="flex gap-2" to="/dashboard/profile">
@@ -87,8 +89,8 @@ const UserDashBoard = () => {
   );
 
   const { logOut } = useContext(AuthContext);
-  const isAdmin = true;
-  const isMarchent = false;
+  const { isAdmin } = useAdmin();
+  const { isSeller } = useSeller();
   const handlerLogout = () => {
     logOut().then();
   };
@@ -109,9 +111,7 @@ const UserDashBoard = () => {
           <ul className="menu p-4 w-80  min-h-full lg:pt-5 pt-[100px] bg-white text-base-content">
             {/* Sidebar content here */}
 
-            {(isAdmin && adminLinks) ||
-              (isMarchent && marchentLinks) ||
-              userLinks}
+            {(isAdmin && adminLinks) || (isSeller && sellerLinks) || userLinks}
             <li>
               <button className="flex gap-2" onClick={handlerLogout}>
                 <CiLogout /> Logout

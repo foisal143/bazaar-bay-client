@@ -3,8 +3,12 @@ import { FaUser } from 'react-icons/fa';
 import useAxiosSecuire from '../../hooks/useAxiosSecuire';
 import toast from 'react-hot-toast';
 import { MdManageAccounts } from 'react-icons/md';
+import Swal from 'sweetalert2';
+import { useContext } from 'react';
+import { AuthContext } from '../../AtuhProvaider/AuthProvaider';
 
 const UsreCard = ({ user }) => {
+  const { auth } = useContext(AuthContext);
   const { name, email } = user;
   const axiosSecure = useAxiosSecuire();
   const handlerMakeAdmin = email => {
@@ -23,6 +27,32 @@ const UsreCard = ({ user }) => {
           toast.success('User promotoed to Seller');
         }
       });
+  };
+
+  const handlerDelete = email => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(result => {
+      const user = auth.getUserByEmail(email);
+      console.log(user);
+      axiosSecure.delete(`/delete-user/${email}`).then(data => {
+        if (data.data.deletedCount > 0) {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'Your file has been deleted.',
+              icon: 'success',
+            });
+          }
+        }
+      });
+    });
   };
 
   return (
@@ -44,7 +74,7 @@ const UsreCard = ({ user }) => {
         </button>
       </div>
 
-      <button>
+      <button onClick={() => handlerDelete(email)}>
         <CiTrash />
       </button>
     </div>

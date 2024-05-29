@@ -4,7 +4,7 @@ import useUsers from '../../../hooks/useUsers';
 
 const ManageUsers = () => {
   const { allUsers } = useUsers();
-
+  console.log(allUsers);
   return (
     <Container>
       <h3 className="title-text mt-3">Manage Users</h3>
@@ -13,7 +13,7 @@ const ManageUsers = () => {
         {allUsers && allUsers.length > 0 ? (
           allUsers.map(user => <UsreCard key={user._id} user={user} />)
         ) : (
-          <h3>No user found!</h3>
+          <h3 className="title-text text-center mt-5">No user found!</h3>
         )}
       </div>
     </Container>

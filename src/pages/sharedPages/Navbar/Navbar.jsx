@@ -6,16 +6,96 @@ import { HiOutlineXMark } from 'react-icons/hi2';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../../AtuhProvaider/AuthProvaider';
 import { CgProfile } from 'react-icons/cg';
-import { FaBars, FaBox } from 'react-icons/fa';
+import { FaBars, FaBox, FaUsers } from 'react-icons/fa';
 import { IoReturnDownBack } from 'react-icons/io5';
 import useCartProducts from '../../../hooks/useCartProducts';
+import useAdmin from '../../../hooks/useAdmin';
+import { ImSpoonKnife } from 'react-icons/im';
+import useSeller from '../../../hooks/useSeller';
+
 const Navbar = () => {
+  const userLinks = (
+    <>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/profile">
+          <CgProfile /> Manage My Profile
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/my-orders">
+          <FaBox /> My Orders
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/my-favorite">
+          <CiHeart className="text-[18px]" /> My Wishlist & Followed Stores
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/my-reviews">
+          <CiStar className="text-[18px]" /> My Reviews
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/my-returns">
+          <IoReturnDownBack /> My Returns
+        </Link>
+      </li>
+    </>
+  );
+
+  const adminLinks = (
+    <>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/profile">
+          <CgProfile /> Manage My Profile
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/manage-users">
+          <FaUsers className="text-[18px]" /> Manage Users
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/manage-orders">
+          <ImSpoonKnife className="text-[18px]" /> Manage Orders
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/manage-products">
+          <ImSpoonKnife className="text-[18px]" /> Manage Products
+        </Link>
+      </li>
+    </>
+  );
+
+  const sellerLinks = (
+    <>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/profile">
+          <CgProfile /> Manage My Profile
+        </Link>
+      </li>
+
+      <li>
+        <Link className="flex gap-2" to="/dashboard/manage-buyer-orders">
+          <ImSpoonKnife className="text-[18px]" /> Manage Orders
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/manage-marchent-products">
+          <ImSpoonKnife className="text-[18px]" /> Manage Products
+        </Link>
+      </li>
+    </>
+  );
   const [showSearch, setShowSearch] = useState(false);
   const { user, logOut } = useContext(AuthContext);
   const { cartProducts, refetch } = useCartProducts();
   const navigate = useNavigate();
   const location = useLocation();
-
+  const { isAdmin } = useAdmin();
+  const { isSeller } = useSeller();
   const handlerSearchProducts = e => {
     e.preventDefault();
     const form = e.target;
@@ -127,32 +207,9 @@ const Navbar = () => {
                 tabIndex={0}
                 className="mt-3 z-[10] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 space-y-2"
               >
-                <li>
-                  <Link className="flex gap-2" to="/dashboard/profile">
-                    <CgProfile /> Manage My Profile
-                  </Link>
-                </li>
-                <li>
-                  <Link className="flex gap-2" to="/dashboard/my-orders">
-                    <FaBox /> My Orders
-                  </Link>
-                </li>
-                <li>
-                  <Link className="flex gap-2" to="/dashboard/my-favorite">
-                    <CiHeart className="text-[18px]" /> My Wishlist & Followed
-                    Stores
-                  </Link>
-                </li>
-                <li>
-                  <Link className="flex gap-2" to="/my-reviews">
-                    <CiStar className="text-[18px]" /> My Reviews
-                  </Link>
-                </li>
-                <li>
-                  <Link className="flex gap-2" to="/my-returns">
-                    <IoReturnDownBack /> My Returns
-                  </Link>
-                </li>
+                {(isAdmin && adminLinks) ||
+                  (isSeller && sellerLinks) ||
+                  userLinks}
                 <li>
                   <button className="flex gap-2" onClick={handlerLogout}>
                     <CiLogout /> Logout
