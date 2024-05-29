@@ -150,7 +150,7 @@ const ProductDetailsPage = () => {
                     placeholderSymbol={<FaStar className="text-yellow-500" />}
                   />{' '}
                   <span className="text-[#1ab3d7]">
-                    {reviews.length} ratings
+                    {reviews?.length} ratings
                   </span>
                 </p>
                 <p>

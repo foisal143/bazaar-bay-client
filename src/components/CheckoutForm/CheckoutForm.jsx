@@ -6,8 +6,13 @@ import { useEffect, useState } from 'react';
 import useAxiosSecuire from '../../hooks/useAxiosSecuire';
 import useSingleUser from '../../hooks/useSingleUser';
 import toast from 'react-hot-toast';
+import useSelectedProducts from '../../hooks/useSelectedProducts';
+import { useNavigate } from 'react-router-dom';
 
 const CheckoutForm = ({ price }) => {
+  const { selectedProducts } = useSelectedProducts();
+  const navigate = useNavigate();
+
   const { singleUser } = useSingleUser();
   const { name, email, address, phoneNumber } = singleUser || {};
   const [loading, setLoading] = useState(false);
@@ -72,7 +77,24 @@ const CheckoutForm = ({ price }) => {
       setLoading(false);
     } else {
       if (paymentIntent.status === 'succeeded') {
-        toast.success('payment success!');
+        const buyProductsInfo = selectedProducts.map(prod => {
+          return { ...prod, status: 'shipped' };
+        });
+        axiosSecuire.post('/buy-products', buyProductsInfo).then(data => {
+          console.log(data);
+          if (data.data.insertedCount > 0) {
+            const selectedIds = selectedProducts.map(prod => prod._id);
+            console.log(selectedIds);
+            axiosSecuire
+              .delete(`/select-carts?ids=${selectedIds}`)
+              .then(data => {
+                if (data.data.deletedCount > 0) {
+                  navigate('/dashboard/my-orders');
+                  toast.success('payment success!');
+                }
+              });
+          }
+        });
         setLoading(false);
       }
     }

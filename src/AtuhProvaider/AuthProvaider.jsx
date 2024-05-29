@@ -50,6 +50,7 @@ const AuthProvaider = ({ children }) => {
   // user detector
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, currentUser => {
+      setLoading(false);
       setUser(currentUser);
       // fech the jwt verify token
       fetch('http://localhost:3000/jwt', {
@@ -63,11 +64,10 @@ const AuthProvaider = ({ children }) => {
         .then(data => {
           localStorage.setItem('bazzar-bay-ac-token', data.token);
         });
-      setLoading(false);
     });
 
     return () => unsub();
-  }, [auth]);
+  }, [auth, user]);
 
   // my auth information here
   const authInfo = {

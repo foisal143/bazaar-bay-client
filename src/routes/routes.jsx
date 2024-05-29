@@ -114,6 +114,10 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: '/dashboard/my-orders',
+        element: <p>this is my orders page</p>,
+      },
     ],
   },
 ]);

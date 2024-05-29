@@ -7,20 +7,46 @@ import OrderSummary from '../../components/OrderSummary/OrderSummary';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
 import useAxiosSecuire from '../../hooks/useAxiosSecuire';
+import useSelectedProducts from '../../hooks/useSelectedProducts';
 
 const MyCartPage = () => {
+  // todo: some bugs here
   const { cartProducts, refetch, isLoading } = useCartProducts();
   const [selcetAll, setSelectAll] = useState([]);
   const [selectAllProducts, setSelectAllProducts] = useState([]);
+  const { selectedProducts, refetch: reFetchSelectProd } =
+    useSelectedProducts();
+
   const axiosSecuire = useAxiosSecuire();
   // handler for select all products
   const handlerSelectAllProduct = e => {
     const checked = e.target.checked;
     if (checked) {
       setSelectAll(cartProducts.map(ele => ele?._id));
+      const allSelectedProds = cartProducts.filter(
+        prod => !selcetAll.includes(prod._id)
+      );
+
+      const slectForDB = [...allSelectedProds, ...selectAllProducts];
+      console.log('selected prod', slectForDB);
+      axiosSecuire.post('/selected-products', slectForDB).then(data => {
+        console.log(data);
+        if (data.data.insertedCount > 0) {
+          toast.success('Selected success!');
+          reFetchSelectProd();
+        }
+      });
     } else {
       setSelectAll([]);
+      axiosSecuire.delete(`/selected-products/${selcetAll}`).then(data => {
+        console.log(data);
+        if (data.data.deletedCount > 0) {
+          toast.success(' Unselected success!');
+          reFetchSelectProd();
+        }
+      });
     }
+    console.log(selectedProducts);
   };
 
   // handler for single prodcut selecet
@@ -28,9 +54,25 @@ const MyCartPage = () => {
     const checked = e.target.checked;
     if (checked) {
       setSelectAll(prev => [...prev, product?._id]);
+      setSelectAllProducts(prev => [...prev, product]);
+      axiosSecuire.post('/selected-products', selectAllProducts).then(data => {
+        console.log(data);
+        if (data.data.insertedCount > 0) {
+          toast.success('Selected success!');
+          reFetchSelectProd();
+        }
+      });
     } else {
       const filterById = selcetAll.filter(id => id !== product?._id);
       setSelectAll(filterById);
+      const deleteIds = selcetAll.filter(id => id === product?._id);
+      axiosSecuire.delete(`/selected-products/${deleteIds}`).then(data => {
+        console.log(data);
+        if (data.data.deletedCount > 0) {
+          toast.success(' Unselected success!');
+          reFetchSelectProd();
+        }
+      });
     }
   };
 
@@ -92,7 +134,7 @@ const MyCartPage = () => {
                 onChange={handlerSelectAllProduct}
                 type="checkbox"
                 name="select"
-                checked={cartProducts?.length === selcetAll?.length}
+                checked={cartProducts?.length === selectAllProducts?.length}
                 id="select"
               />{' '}
               <label className="cursor-pointer" htmlFor="select">

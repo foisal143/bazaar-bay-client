@@ -17,7 +17,7 @@ const ForYouProducts = () => {
               <ProductCard product={product} key={product._id} />
             ))}
           </div>
-          {products.length > 12 && <Button text={'Load More'}></Button>}
+          {products?.length > 12 && <Button text={'Load More'}></Button>}
         </>
       ) : (
         <p>No Prodcut to show</p>

@@ -23,7 +23,7 @@ const ProductCard = ({ product }) => {
               fullSymbol={<FaStar className="text-yellow-500" />}
               placeholderSymbol={<FaStar className="text-yellow-500" />}
             />{' '}
-            <span>({reviews.length})</span>
+            <span>({reviews?.length})</span>
           </p>
         </div>
       </div>

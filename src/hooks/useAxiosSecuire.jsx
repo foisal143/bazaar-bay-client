@@ -29,7 +29,10 @@ const useAxiosSecuire = () => {
     },
     error => {
       console.log(error);
-      if (error.response.status === 403 || error.response.status === 401) {
+      if (
+        (error.response && error.response.status === 403) ||
+        error.response.status === 401
+      ) {
         logOut().then();
         navigate('/login');
       }

@@ -16,7 +16,7 @@ const ReviewsSection = ({ reviews, rating }) => {
             fullSymbol={<FaStar className="text-yellow-500" />}
             placeholderSymbol={<FaStar className="text-yellow-500" />}
           />{' '}
-          <span>({reviews.length})</span>{' '}
+          <span>({reviews && reviews?.length})</span>{' '}
         </p>
         <span className="text-primary font-semibold">
           {rating}{' '}
@@ -27,7 +27,7 @@ const ReviewsSection = ({ reviews, rating }) => {
       </div>
 
       <div className="mt-8 flex flex-col gap-5">
-        {reviews && reviews.length > 0 ? (
+        {reviews && reviews?.length > 0 ? (
           reviews.map(review => (
             <div className="space-y-2" key={review.image}>
               <p className="text-xs">
