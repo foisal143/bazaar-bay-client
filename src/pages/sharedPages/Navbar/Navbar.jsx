@@ -133,7 +133,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link className="flex gap-2" to="/my-orders">
+                  <Link className="flex gap-2" to="/dashboard/my-orders">
                     <FaBox /> My Orders
                   </Link>
                 </li>

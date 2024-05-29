@@ -7,78 +7,70 @@ import OrderSummary from '../../components/OrderSummary/OrderSummary';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
 import useAxiosSecuire from '../../hooks/useAxiosSecuire';
-import useSelectedProducts from '../../hooks/useSelectedProducts';
 
 const MyCartPage = () => {
-  // todo: some bugs here
   const { cartProducts, refetch, isLoading } = useCartProducts();
-  const [selcetAll, setSelectAll] = useState([]);
-  const [selectAllProducts, setSelectAllProducts] = useState([]);
-  const { selectedProducts, refetch: reFetchSelectProd } =
-    useSelectedProducts();
-
   const axiosSecuire = useAxiosSecuire();
-  // handler for select all products
+  const [selectAllIds, setSelectAllIds] = useState([]);
+  const [selectAllProducts, setSelectAllProducts] = useState([]);
+
+  // handler for all
+
   const handlerSelectAllProduct = e => {
     const checked = e.target.checked;
     if (checked) {
-      setSelectAll(cartProducts.map(ele => ele?._id));
-      const allSelectedProds = cartProducts.filter(
-        prod => !selcetAll.includes(prod._id)
+      const cartProdIds = cartProducts.map(prod => prod._id);
+      setSelectAllIds(cartProdIds);
+
+      const selecteProds = cartProducts.filter(prod =>
+        cartProdIds.includes(prod._id)
       );
 
-      const slectForDB = [...allSelectedProds, ...selectAllProducts];
-      console.log('selected prod', slectForDB);
-      axiosSecuire.post('/selected-products', slectForDB).then(data => {
-        console.log(data);
+      // impliment data base
+
+      axiosSecuire.post('/selected-products', selecteProds).then(data => {
         if (data.data.insertedCount > 0) {
-          toast.success('Selected success!');
-          reFetchSelectProd();
+          toast.success('Products Selected!');
         }
       });
     } else {
-      setSelectAll([]);
-      axiosSecuire.delete(`/selected-products/${selcetAll}`).then(data => {
-        console.log(data);
+      axiosSecuire.delete(`/selected-products/${selectAllIds}`).then(data => {
         if (data.data.deletedCount > 0) {
-          toast.success(' Unselected success!');
-          reFetchSelectProd();
+          toast.success('Product Unselected!');
         }
       });
+      setSelectAllIds([]);
     }
-    console.log(selectedProducts);
   };
 
-  // handler for single prodcut selecet
   const handlerSelectSingleProduct = (e, product) => {
     const checked = e.target.checked;
+    const seleectPorductsSingle = [];
     if (checked) {
-      setSelectAll(prev => [...prev, product?._id]);
-      setSelectAllProducts(prev => [...prev, product]);
-      axiosSecuire.post('/selected-products', selectAllProducts).then(data => {
-        console.log(data);
-        if (data.data.insertedCount > 0) {
-          toast.success('Selected success!');
-          reFetchSelectProd();
-        }
-      });
+      setSelectAllIds(prev => [...prev, product._id]);
+      seleectPorductsSingle.push(product);
+      // impliment data base
+      axiosSecuire
+        .post('/selected-products', seleectPorductsSingle)
+        .then(data => {
+          if (data.data.insertedCount > 0) {
+            toast.success('Products Selected!');
+          }
+        });
     } else {
-      const filterById = selcetAll.filter(id => id !== product?._id);
-      setSelectAll(filterById);
-      const deleteIds = selcetAll.filter(id => id === product?._id);
-      axiosSecuire.delete(`/selected-products/${deleteIds}`).then(data => {
-        console.log(data);
+      const selectProdIds = selectAllIds.filter(id => product._id !== id);
+      const idsForDelete = selectAllIds.filter(id => id === product._id);
+      axiosSecuire.delete(`/selected-products/${idsForDelete}`).then(data => {
         if (data.data.deletedCount > 0) {
-          toast.success(' Unselected success!');
-          reFetchSelectProd();
+          toast.success('Product Unselected!');
+          setSelectAllIds(selectProdIds);
         }
       });
     }
   };
 
-  // handler delete selected cards
-  const handlerDeleteSelectCart = () => {
-    if (selcetAll?.length > 0) {
+  const handlerDeleteAllCartProducts = () => {
+    if (selectAllIds.length > 0) {
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -89,32 +81,40 @@ const MyCartPage = () => {
         confirmButtonText: 'Yes, delete it!',
       }).then(result => {
         if (result.isConfirmed) {
-          axiosSecuire.delete(`/select-carts?ids=${selcetAll}`).then(data => {
-            console.log(data);
-            if (data.data.deletedCount > 0) {
-              refetch();
-              Swal.fire({
-                title: 'Deleted!',
-                text: 'Your file has been deleted.',
-                icon: 'success',
-              });
-            }
-          });
+          axiosSecuire
+            .delete(`/select-carts?ids=${selectAllIds}`)
+            .then(data => {
+              if (data.data.deletedCount > 0) {
+                axiosSecuire
+                  .delete(`/selected-products/${selectAllIds}`)
+                  .then(data => {
+                    if (data.data.deletedCount > 0) {
+                      Swal.fire({
+                        title: 'Deleted!',
+                        text: 'Your file has been deleted.',
+                        icon: 'success',
+                      });
+                      setSelectAllIds([]);
+                      refetch();
+                    }
+                  });
+              }
+            });
         }
       });
     } else {
-      toast.error('please select a product');
+      toast.error('Please select at least one product!');
     }
   };
-  // set the all products to state
+  // set all products by using useeffect
   useEffect(() => {
     if (!isLoading) {
-      const seletedProducts = cartProducts.filter(prod =>
-        selcetAll.includes(prod._id)
+      const selecteProds = cartProducts.filter(prod =>
+        selectAllIds.includes(prod._id)
       );
-      setSelectAllProducts(seletedProducts);
+      setSelectAllProducts(selecteProds);
     }
-  }, [cartProducts, selcetAll, isLoading]);
+  }, [selectAllIds, isLoading, cartProducts]);
 
   return (
     <Container>
@@ -142,7 +142,7 @@ const MyCartPage = () => {
               </label>
             </div>
             <button
-              onClick={handlerDeleteSelectCart}
+              onClick={handlerDeleteAllCartProducts}
               className="flex text-xs items-center gap-1 hover:text-error uppercase"
             >
               <CiTrash /> Delete
@@ -157,7 +157,7 @@ const MyCartPage = () => {
                     handlerSelectSingleProduct={handlerSelectSingleProduct}
                     product={product}
                     refetch={refetch}
-                    selectAll={selcetAll}
+                    selectAll={selectAllIds}
                   />
                 ))}
             </div>

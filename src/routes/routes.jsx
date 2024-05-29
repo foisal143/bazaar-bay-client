@@ -15,6 +15,8 @@ import EditProfile from '../pages/UserDashboard/EditProfile/EditProfile';
 import EditAddress from '../pages/UserDashboard/EditAddress/EditAddress';
 import BuyProductPage from '../pages/BuyProductPage/BuyProductPage';
 import PaymentPage from '../pages/PaymentPage/PaymentPage';
+import OrdersPage from '../pages/UserDashboard/OrdersPage/OrdersPage';
+import ManageUsers from '../pages/AdminDashboardsPages/ManageUsers/ManageUsers';
 
 const router = createBrowserRouter([
   {
@@ -116,7 +118,16 @@ const router = createBrowserRouter([
       },
       {
         path: '/dashboard/my-orders',
-        element: <p>this is my orders page</p>,
+        element: (
+          <PrivateRoute>
+            <OrdersPage />
+          </PrivateRoute>
+        ),
+      },
+      // admin routes
+      {
+        path: '/dashboard/manage-users',
+        element: <ManageUsers />,
       },
     ],
   },

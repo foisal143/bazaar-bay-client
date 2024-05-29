@@ -2,17 +2,18 @@ import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import Container from '../Container/Container';
 import './CheckoutForm.css';
 import stripeImage from '../../assets/img/stripe.png';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import useAxiosSecuire from '../../hooks/useAxiosSecuire';
 import useSingleUser from '../../hooks/useSingleUser';
 import toast from 'react-hot-toast';
 import useSelectedProducts from '../../hooks/useSelectedProducts';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../AtuhProvaider/AuthProvaider';
 
 const CheckoutForm = ({ price }) => {
   const { selectedProducts } = useSelectedProducts();
   const navigate = useNavigate();
-
+  const { user } = useContext(AuthContext);
   const { singleUser } = useSingleUser();
   const { name, email, address, phoneNumber } = singleUser || {};
   const [loading, setLoading] = useState(false);
@@ -76,11 +77,16 @@ const CheckoutForm = ({ price }) => {
       toast.error('payment unsuccessfull!');
       setLoading(false);
     } else {
-      if (paymentIntent.status === 'succeeded') {
-        const buyProductsInfo = selectedProducts.map(prod => {
-          return { ...prod, status: 'shipped' };
+      if (paymentIntent?.status === 'succeeded') {
+        const ordersProdInfo = selectedProducts.map(prod => {
+          return {
+            ...prod,
+            status: 'shipped',
+            date: new Date(),
+            email: user?.email,
+          };
         });
-        axiosSecuire.post('/buy-products', buyProductsInfo).then(data => {
+        axiosSecuire.post('/buy-products', ordersProdInfo).then(data => {
           console.log(data);
           if (data.data.insertedCount > 0) {
             const selectedIds = selectedProducts.map(prod => prod._id);
@@ -89,8 +95,14 @@ const CheckoutForm = ({ price }) => {
               .delete(`/select-carts?ids=${selectedIds}`)
               .then(data => {
                 if (data.data.deletedCount > 0) {
-                  navigate('/dashboard/my-orders');
-                  toast.success('payment success!');
+                  axiosSecuire
+                    .delete(`/selected-products/${selectedIds}`)
+                    .then(data => {
+                      if (data.data.deletedCount > 0) {
+                        navigate('/dashboard/my-orders');
+                        toast.success('payment success!');
+                      }
+                    });
                 }
               });
           }

@@ -1,0 +1,23 @@
+const OrderProductCard = ({ product }) => {
+  const { name, image, quantity, status } = product || {};
+  return (
+    <div className="flex my-5 shadow-md rounded-md p-3 justify-between ">
+      <div className=" md:flex gap-3 w-1/2">
+        <img className="w-20 h-20" src={image} alt="" />
+        <h4 className="text-xl font-semibold">{name}</h4>
+      </div>
+      <p>{quantity}</p>
+      <p
+        className={
+          (status === 'shipped' && 'text-yellow-500') ||
+          (status === 'recevied' && 'text-green-500') ||
+          (status === 'paid' && 'text-red-500')
+        }
+      >
+        {status}
+      </p>
+    </div>
+  );
+};
+
+export default OrderProductCard;

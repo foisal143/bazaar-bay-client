@@ -2,14 +2,93 @@ import Navbar from '../pages/sharedPages/Navbar/Navbar';
 import { Link, Outlet } from 'react-router-dom';
 import Footer from '../pages/sharedPages/Footer/Footer';
 import { CgProfile } from 'react-icons/cg';
-import { FaBox } from 'react-icons/fa';
+import { FaBox, FaUsers } from 'react-icons/fa';
 import { CiHeart, CiLogout, CiStar } from 'react-icons/ci';
 import { IoReturnDownBack } from 'react-icons/io5';
 import { useContext } from 'react';
 import { AuthContext } from '../AtuhProvaider/AuthProvaider';
 
+import { ImSpoonKnife } from 'react-icons/im';
 const UserDashBoard = () => {
+  const userLinks = (
+    <>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/profile">
+          <CgProfile /> Manage My Profile
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/my-orders">
+          <FaBox /> My Orders
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/my-favorite">
+          <CiHeart className="text-[18px]" /> My Wishlist & Followed Stores
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/my-reviews">
+          <CiStar className="text-[18px]" /> My Reviews
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/my-returns">
+          <IoReturnDownBack /> My Returns
+        </Link>
+      </li>
+    </>
+  );
+
+  const adminLinks = (
+    <>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/profile">
+          <CgProfile /> Manage My Profile
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/manage-users">
+          <FaUsers className="text-[18px]" /> Manage Users
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/manage-orders">
+          <ImSpoonKnife className="text-[18px]" /> Manage Orders
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/manage-products">
+          <ImSpoonKnife className="text-[18px]" /> Manage Products
+        </Link>
+      </li>
+    </>
+  );
+
+  const marchentLinks = (
+    <>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/profile">
+          <CgProfile /> Manage My Profile
+        </Link>
+      </li>
+
+      <li>
+        <Link className="flex gap-2" to="/dashboard/manage-buyer-orders">
+          <ImSpoonKnife className="text-[18px]" /> Manage Orders
+        </Link>
+      </li>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/manage-marchent-products">
+          <ImSpoonKnife className="text-[18px]" /> Manage Products
+        </Link>
+      </li>
+    </>
+  );
+
   const { logOut } = useContext(AuthContext);
+  const isAdmin = true;
+  const isMarchent = false;
   const handlerLogout = () => {
     logOut().then();
   };
@@ -27,35 +106,12 @@ const UserDashBoard = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu p-4 w-80  min-h-[calc(100vh-80px)] lg:pt-5 pt-[100px] bg-white text-base-content">
+          <ul className="menu p-4 w-80  min-h-full lg:pt-5 pt-[100px] bg-white text-base-content">
             {/* Sidebar content here */}
 
-            <li>
-              <Link className="flex gap-2" to="/dashboard/profile">
-                <CgProfile /> Manage My Profile
-              </Link>
-            </li>
-            <li>
-              <Link className="flex gap-2" to="/my-orders">
-                <FaBox /> My Orders
-              </Link>
-            </li>
-            <li>
-              <Link className="flex gap-2" to="/dashboard/my-favorite">
-                <CiHeart className="text-[18px]" /> My Wishlist & Followed
-                Stores
-              </Link>
-            </li>
-            <li>
-              <Link className="flex gap-2" to="/my-reviews">
-                <CiStar className="text-[18px]" /> My Reviews
-              </Link>
-            </li>
-            <li>
-              <Link className="flex gap-2" to="/my-returns">
-                <IoReturnDownBack /> My Returns
-              </Link>
-            </li>
+            {(isAdmin && adminLinks) ||
+              (isMarchent && marchentLinks) ||
+              userLinks}
             <li>
               <button className="flex gap-2" onClick={handlerLogout}>
                 <CiLogout /> Logout
