@@ -7,7 +7,7 @@ const useSingleUser = () => {
   const { user } = useContext(AuthContext);
   const axiosSecuire = useAxiosSecuire();
   const { data: singleUser, refetch } = useQuery({
-    queryKey: ['user'],
+    queryKey: ['users'],
     queryFn: async () => {
       const res = await axiosSecuire.get(`/users/${user?.email}`);
       return res.data;

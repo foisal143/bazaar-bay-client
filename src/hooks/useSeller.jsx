@@ -14,7 +14,7 @@ const useSeller = () => {
       return res.data;
     },
   });
-  return { isSeller };
+  return { isSeller: isSeller?.isSeller };
 };
 
 export default useSeller;

@@ -1,14 +1,21 @@
 import { Link } from 'react-router-dom';
 import Container from '../../components/Container/Container';
 import useSingleUser from '../../hooks/useSingleUser';
+import useAdmin from '../../hooks/useAdmin';
+import useSeller from '../../hooks/useSeller';
 
 const ManageProfile = () => {
   const { singleUser } = useSingleUser();
+  const { isAdmin } = useAdmin();
+  const { isSeller } = useSeller();
   const { name, email, gender, birthday } = singleUser || {};
   return (
     <Container>
       <h3 className="mt-5 title-text">
-        Manage My <span className="text-primary">Profile</span>
+        Wellcome Back <span className="text-primary">{name}</span>{' '}
+        <strong>
+          {(isAdmin && '(Admin)') || (isSeller && '(Seller)') || ''}
+        </strong>
       </h3>
       <div className="mt-5  grid grid-cols-1 md:grid-cols-3 gap-5 ">
         <div className="bg-white p-5 space-y-5">

@@ -62,7 +62,7 @@ const Navbar = () => {
         </Link>
       </li>
       <li>
-        <Link className="flex gap-2" to="/manage-products">
+        <Link className="flex gap-2" to="/dashboard/manage-products">
           <ImSpoonKnife className="text-[18px]" /> Manage Products
         </Link>
       </li>
@@ -78,12 +78,12 @@ const Navbar = () => {
       </li>
 
       <li>
-        <Link className="flex gap-2" to="/dashboard/manage-buyer-orders">
+        <Link className="flex gap-2" to="/dashboard/manage-seller-orders">
           <ImSpoonKnife className="text-[18px]" /> Manage Orders
         </Link>
       </li>
       <li>
-        <Link className="flex gap-2" to="/dashboard/manage-marchent-products">
+        <Link className="flex gap-2" to="/dashboard/manage-seller-products">
           <ImSpoonKnife className="text-[18px]" /> Manage Products
         </Link>
       </li>
@@ -96,6 +96,7 @@ const Navbar = () => {
   const location = useLocation();
   const { isAdmin } = useAdmin();
   const { isSeller } = useSeller();
+
   const handlerSearchProducts = e => {
     e.preventDefault();
     const form = e.target;
@@ -207,9 +208,7 @@ const Navbar = () => {
                 tabIndex={0}
                 className="mt-3 z-[10] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 space-y-2"
               >
-                {(isAdmin && adminLinks) ||
-                  (isSeller && sellerLinks) ||
-                  userLinks}
+                {isAdmin ? adminLinks : isSeller ? sellerLinks : userLinks}
                 <li>
                   <button className="flex gap-2" onClick={handlerLogout}>
                     <CiLogout /> Logout

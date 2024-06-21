@@ -10,6 +10,7 @@ import { AuthContext } from '../../AtuhProvaider/AuthProvaider';
 const UsreCard = ({ user }) => {
   const { auth } = useContext(AuthContext);
   const { name, email } = user;
+  const disabled = user?.role === 'admin' || user?.role === 'seller';
   const axiosSecure = useAxiosSecuire();
   const handlerMakeAdmin = email => {
     axiosSecure.patch(`/change-role/${email}`, { role: 'admin' }).then(data => {
@@ -62,19 +63,31 @@ const UsreCard = ({ user }) => {
         <p>{email}</p>
       </div>
       <div className="flex gap-5">
-        <button onClick={() => handlerMakeAdmin(email)} title="Make Admin">
+        <button
+          disabled={disabled}
+          className={disabled && 'text-gray-400'}
+          onClick={() => handlerMakeAdmin(email)}
+          title="Make Admin"
+        >
           <FaUser />
         </button>
         <button
-          className="text-2xl"
+          className={`text-xl ${disabled && 'text-gray-400'}`}
+          disabled={disabled}
           onClick={() => handlerMakeSeller(email)}
           title="Make Seller"
         >
           <MdManageAccounts />
         </button>
       </div>
+      <p>
+        <strong>{user?.role ? user.role : 'User'}</strong>
+      </p>
 
-      <button onClick={() => handlerDelete(email)}>
+      <button
+        className="p-3 rounded-full bg-primary text-white"
+        onClick={() => handlerDelete(email)}
+      >
         <CiTrash />
       </button>
     </div>

@@ -14,7 +14,7 @@ const useAdmin = () => {
       return res.data;
     },
   });
-  return { isAdmin };
+  return { isAdmin: isAdmin?.isAdmin };
 };
 
 export default useAdmin;

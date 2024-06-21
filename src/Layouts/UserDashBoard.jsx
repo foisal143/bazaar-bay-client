@@ -60,7 +60,7 @@ const UserDashBoard = () => {
         </Link>
       </li>
       <li>
-        <Link className="flex gap-2" to="/manage-products">
+        <Link className="flex gap-2" to="/dashboard/manage-products">
           <ImSpoonKnife className="text-[18px]" /> Manage Products
         </Link>
       </li>
