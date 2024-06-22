@@ -20,7 +20,9 @@ const ManageOrders = () => {
 
   return (
     <Container>
-      <h3 className="title-text my-5">Manage All Orders</h3>
+      <h3 className="title-text my-5">
+        Manage All <span className="text-primary">Orders</span>
+      </h3>
 
       <div className="p-5 bg-white">
         {allOrderProducts && allOrderProducts.length > 0 ? (

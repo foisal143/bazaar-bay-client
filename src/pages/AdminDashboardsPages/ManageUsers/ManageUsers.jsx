@@ -7,7 +7,9 @@ const ManageUsers = () => {
   console.log(allUsers);
   return (
     <Container>
-      <h3 className="title-text mt-3">Manage Users</h3>
+      <h3 className="title-text mt-3">
+        Manage All <span className="text-primary">Users</span>
+      </h3>
 
       <div className="bg-white p-5 mt-5">
         {allUsers && allUsers.length > 0 ? (

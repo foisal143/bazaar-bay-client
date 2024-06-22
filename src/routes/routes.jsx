@@ -18,6 +18,7 @@ import PaymentPage from '../pages/PaymentPage/PaymentPage';
 import OrdersPage from '../pages/UserDashboard/OrdersPage/OrdersPage';
 import ManageUsers from '../pages/AdminDashboardsPages/ManageUsers/ManageUsers';
 import ManageOrders from '../pages/AdminDashboardsPages/ManageOrders/ManageOrders';
+import ManageProducts from '../pages/AdminDashboardsPages/ManageProducts/ManageProducts';
 
 const router = createBrowserRouter([
   {
@@ -139,6 +140,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ManageOrders />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/dashboard/manage-products',
+        element: (
+          <PrivateRoute>
+            <ManageProducts />
           </PrivateRoute>
         ),
       },
