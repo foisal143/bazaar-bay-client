@@ -20,7 +20,7 @@ const AddProducts = () => {
   } = useForm();
   const axiosSecuire = useAxiosSecuire();
   const { user } = useContext(AuthContext);
-  const { loading, setLoading } = useState(false);
+  const [loading, setLoading] = useState(false);
   const onSubmit = async data => {
     setLoading(true);
     if (data.image.length > 0) {
