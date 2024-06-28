@@ -1,7 +1,7 @@
 import { FiEdit } from 'react-icons/fi';
 
 const ManageProductsTableRow = ({ product, index }) => {
-  const { name, image, price, _id, category } = product;
+  const { name, image, price, category } = product;
   return (
     <tr>
       <th>{index + 1}</th>

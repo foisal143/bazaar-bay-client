@@ -4,17 +4,18 @@ import useAxiosSecuire from './useAxiosSecuire';
 import { useQuery } from '@tanstack/react-query';
 
 const useSeller = () => {
-  const { user, loading } = useContext(AuthContext);
-  const axiosSecure = useAxiosSecuire();
-  const { data: isSeller } = useQuery({
-    queryKey: ['user'],
-    enabled: !loading,
+  const { user } = useContext(AuthContext);
+  const axioSecure = useAxiosSecuire();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['user', 'isSeller', user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/seller/${user?.email}`);
-      return res.data;
+      const data = await axioSecure.get(`/is-seller/${user?.email}`);
+      return data.data;
     },
   });
-  return { isSeller: isSeller?.isSeller };
+  console.log('from useSeller', user?.email, data?.isSeller);
+  return { isSeller: data?.isSeller, isLoading };
 };
 
 export default useSeller;

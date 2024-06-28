@@ -2,7 +2,7 @@ import Navbar from '../pages/sharedPages/Navbar/Navbar';
 import { Link, Outlet } from 'react-router-dom';
 import Footer from '../pages/sharedPages/Footer/Footer';
 import { CgProfile } from 'react-icons/cg';
-import { FaBox, FaUsers } from 'react-icons/fa';
+import { FaBox, FaPlus, FaUsers } from 'react-icons/fa';
 import { CiHeart, CiLogout, CiStar } from 'react-icons/ci';
 import { IoReturnDownBack } from 'react-icons/io5';
 import { useContext } from 'react';
@@ -74,14 +74,19 @@ const UserDashBoard = () => {
           <CgProfile /> Manage My Profile
         </Link>
       </li>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/add-products">
+          <FaPlus /> Add Products
+        </Link>
+      </li>
 
       <li>
-        <Link className="flex gap-2" to="/dashboard/manage-buyer-orders">
+        <Link className="flex gap-2" to="/dashboard/manage-seller-orders">
           <ImSpoonKnife className="text-[18px]" /> Manage Orders
         </Link>
       </li>
       <li>
-        <Link className="flex gap-2" to="/dashboard/manage-marchent-products">
+        <Link className="flex gap-2" to="/dashboard/manage-seller-products">
           <ImSpoonKnife className="text-[18px]" /> Manage Products
         </Link>
       </li>

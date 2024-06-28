@@ -6,7 +6,7 @@ import { HiOutlineXMark } from 'react-icons/hi2';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../../AtuhProvaider/AuthProvaider';
 import { CgProfile } from 'react-icons/cg';
-import { FaBars, FaBox, FaUsers } from 'react-icons/fa';
+import { FaBars, FaBox, FaPlus, FaUsers } from 'react-icons/fa';
 import { IoReturnDownBack } from 'react-icons/io5';
 import useCartProducts from '../../../hooks/useCartProducts';
 import useAdmin from '../../../hooks/useAdmin';
@@ -76,6 +76,11 @@ const Navbar = () => {
           <CgProfile /> Manage My Profile
         </Link>
       </li>
+      <li>
+        <Link className="flex gap-2" to="/dashboard/add-products">
+          <FaPlus /> Add Products
+        </Link>
+      </li>
 
       <li>
         <Link className="flex gap-2" to="/dashboard/manage-seller-orders">
@@ -109,6 +114,8 @@ const Navbar = () => {
     await logOut();
     refetch();
   };
+
+  console.log('form navber', isSeller, isAdmin);
 
   return (
     <nav className="w-full sticky top-0 z-20 h-[80px] bg-primary text-white flex justify-between items-center px-2 lg:px-12">
@@ -208,7 +215,9 @@ const Navbar = () => {
                 tabIndex={0}
                 className="mt-3 z-[10] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 space-y-2"
               >
-                {isAdmin ? adminLinks : isSeller ? sellerLinks : userLinks}
+                {(isAdmin && adminLinks) ||
+                  (isSeller && sellerLinks) ||
+                  userLinks}
                 <li>
                   <button className="flex gap-2" onClick={handlerLogout}>
                     <CiLogout /> Logout

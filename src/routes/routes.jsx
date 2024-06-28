@@ -19,6 +19,10 @@ import OrdersPage from '../pages/UserDashboard/OrdersPage/OrdersPage';
 import ManageUsers from '../pages/AdminDashboardsPages/ManageUsers/ManageUsers';
 import ManageOrders from '../pages/AdminDashboardsPages/ManageOrders/ManageOrders';
 import ManageProducts from '../pages/AdminDashboardsPages/ManageProducts/ManageProducts';
+import AdminRoute from '../AdminRoute/AdminRoute';
+import ManageBuyerOrders from '../pages/SellerDashboardsPages/ManageBuyerOrders/ManageBuyerOrders';
+import ManageMyProducts from '../pages/SellerDashboardsPages/ManageMyProducts/ManageMyProducts';
+import AddProducts from '../pages/SellerDashboardsPages/AddProducts/AddProducts';
 
 const router = createBrowserRouter([
   {
@@ -131,7 +135,9 @@ const router = createBrowserRouter([
         path: '/dashboard/manage-users',
         element: (
           <PrivateRoute>
-            <ManageUsers />
+            <AdminRoute>
+              <ManageUsers />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -147,9 +153,25 @@ const router = createBrowserRouter([
         path: '/dashboard/manage-products',
         element: (
           <PrivateRoute>
-            <ManageProducts />
+            <AdminRoute>
+              <ManageProducts />
+            </AdminRoute>
           </PrivateRoute>
         ),
+      },
+      // seller routes
+      {
+        path: '/dashboard/manage-seller-orders',
+        element: <ManageBuyerOrders />,
+      },
+
+      {
+        path: '/dashboard/manage-seller-products',
+        element: <ManageMyProducts />,
+      },
+      {
+        path: '/dashboard/add-products',
+        element: <AddProducts />,
       },
     ],
   },
