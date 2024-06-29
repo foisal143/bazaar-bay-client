@@ -9,11 +9,13 @@ import toast from 'react-hot-toast';
 import useSelectedProducts from '../../hooks/useSelectedProducts';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AtuhProvaider/AuthProvaider';
+import useCartProducts from '../../hooks/useCartProducts';
 
 const CheckoutForm = ({ price }) => {
   const { selectedProducts } = useSelectedProducts();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const { cartProducts } = useCartProducts();
   const { singleUser } = useSingleUser();
   const { name, email, address, phoneNumber } = singleUser || {};
   const [loading, setLoading] = useState(false);
@@ -24,7 +26,7 @@ const CheckoutForm = ({ price }) => {
   useEffect(() => {
     axiosSecuire.post('/payment-intent', { price }).then(data => {
       const scKey = data.data.clientSecret;
-      console.log(data);
+
       setSecretKey(scKey);
     });
   }, [axiosSecuire, price]);
@@ -78,6 +80,7 @@ const CheckoutForm = ({ price }) => {
     } else {
       if (paymentIntent?.status === 'succeeded') {
         const ordersProdInfo = selectedProducts.map(prod => {
+          delete prod._id;
           return {
             ...prod,
             seller: prod?.sellerEmail,
@@ -86,20 +89,22 @@ const CheckoutForm = ({ price }) => {
             email: user?.email,
           };
         });
-        console.log(ordersProdInfo);
+        console.log('outside of buy products api', ordersProdInfo);
         axiosSecuire.post('/buy-products', ordersProdInfo).then(data => {
+          console.log(data);
           if (data.data.insertedCount > 0) {
-            const selectedIds = selectedProducts.map(prod => prod._id);
-            console.log(selectedIds);
+            const selectedIds = selectedProducts.map(prod => prod.productId);
+            console.log('from buy-products api', selectedIds);
             axiosSecuire
-              .delete(`/select-carts?ids=${selectedIds}`)
+              .delete(`/selected-products/${selectedIds}`)
               .then(data => {
                 if (data.data.deletedCount > 0) {
+                  navigate('/dashboard/my-orders');
+
                   axiosSecuire
-                    .delete(`/selected-products/${selectedIds}`)
+                    .delete(`/select-carts?ids=${selectedIds}`)
                     .then(data => {
                       if (data.data.deletedCount > 0) {
-                        navigate('/dashboard/my-orders');
                         toast.success('payment success!');
                       }
                     });

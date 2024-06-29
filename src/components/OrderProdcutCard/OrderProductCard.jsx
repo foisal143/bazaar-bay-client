@@ -10,7 +10,7 @@ const OrderProductCard = ({ product }) => {
       <p
         className={
           (status === 'shipped' && 'text-yellow-500') ||
-          (status === 'recevied' && 'text-green-500') ||
+          (status === 'recived' && 'text-green-500') ||
           (status === 'paid' && 'text-red-500')
         }
       >

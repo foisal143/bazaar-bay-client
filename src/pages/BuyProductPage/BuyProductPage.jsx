@@ -1,13 +1,41 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import Container from '../../components/Container/Container';
 import useSingleUser from '../../hooks/useSingleUser';
+import toast from 'react-hot-toast';
+import useAxiosSecuire from '../../hooks/useAxiosSecuire';
+import { useContext } from 'react';
+import { AuthContext } from '../../AtuhProvaider/AuthProvaider';
 
 const BuyProductPage = () => {
   const product = useLoaderData();
+  const { user } = useContext(AuthContext);
+  const axiosSecuire = useAxiosSecuire();
   const { singleUser } = useSingleUser();
   const { name, phoneNumber, address, email, province } = singleUser || {};
   const delivaryChare = province?.toLowerCase() === 'dhaka' ? 2 : 10;
   const total = parseFloat((product?.price + delivaryChare).toFixed(2));
+  const navigate = useNavigate();
+
+  const hanlderNavigateToPayment = () => {
+    if (address && phoneNumber) {
+      navigate(`/payment/${total}`);
+      const productDetails = {
+        ...product,
+        email: user?.email,
+        sellerEmail: product.email,
+        productId: product?._id,
+        buyer: user?.displayName,
+      };
+      console.log([productDetails]);
+      axiosSecuire.post('/selected-products', [productDetails]).then(data => {
+        if (data.data.insertedCount > 0) {
+          toast.success('Products Selected!');
+        }
+      });
+    } else {
+      toast.error('At First Update your billing details from you profile!');
+    }
+  };
   return (
     <Container>
       <div className="mt-5 lg:flex space-y-5 justify-between gap-5">
@@ -56,7 +84,10 @@ const BuyProductPage = () => {
               Total: <span>${total}</span>
             </p>
           </div>
-          <button className="w-full bg-primary py-2 px-8 rounded-md text-white mt-16">
+          <button
+            onClick={hanlderNavigateToPayment}
+            className="w-full bg-primary py-2 px-8 rounded-md text-white mt-16"
+          >
             Procceed To Checkout ${total}
           </button>
         </div>

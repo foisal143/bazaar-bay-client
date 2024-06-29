@@ -128,10 +128,20 @@ const UpdateProductModal = ({ product, refetch }) => {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md"
                       >
                         <option value="">Select a category</option>
-                        <option value="Accessories">Accessories</option>
-                        <option value="Electronics">Electronics</option>
-                        <option value="Home">Home</option>
-                        <option value="Clothing">Clothing</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="home">Home</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="books">Books</option>
+                        <option value="beauty">Beauty And Personal Care</option>
+                        <option value="sports">Sports</option>
+                        <option value="toys">Toys</option>
+                        <option value="automotive">Automotive</option>
+                        <option value="health">Health And Wellness</option>
+                        <option value="jewelry">Jewelry</option>
+                        <option value="pets">Pet Supplies</option>
+                        <option value="baby">Baby And Kids</option>
+                        <option value="offices">Offices Supplies</option>
+                        <option value="watches">Watches</option>
                       </select>
                     </div>
                   </div>
@@ -140,7 +150,7 @@ const UpdateProductModal = ({ product, refetch }) => {
                     <div className="flex items-center space-x-2">
                       <input
                         type="file"
-                        {...register('image', { required: true })}
+                        {...register('image')}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md"
                       />
                     </div>

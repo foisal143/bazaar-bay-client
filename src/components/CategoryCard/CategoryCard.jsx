@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const CategoryCard = ({ category }) => {
   return (
-    <Link to={`/products/${category.name}`}>
+    <Link to={`/products/${category?.path}`}>
       {' '}
       <div className="text-center hover:shadow-md duration-200 transition-all h-[160px] border p-3">
         <img

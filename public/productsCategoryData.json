@@ -2,72 +2,86 @@
   {
     "id": 1,
     "name": "Electronics",
+    "path": "electronics",
     "image": "https://www.thenoiseuk.com/wp-content/uploads/2021/10/Consumer-Electronics-Appliance_blog.jpeg"
   },
   {
     "id": 2,
     "name": "Clothing",
+    "path": "clothing",
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhUOFUzlUto-SjhCO-S9uC-KxMKZ_jYQIuQXVzbhbqfQ&s"
   },
   {
     "id": 3,
     "name": "Home and Garden",
+    "path": "home",
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWnLQAT2PX0mEcSRfn8KQZ3T02htC9j5QGQwMPija3YQ&s"
   },
   {
     "id": 4,
     "name": "Beauty and Personal Care",
+    "path": "beauty",
     "image": "https://media.licdn.com/dms/image/D4E12AQFmeRTJMNageQ/article-cover_image-shrink_720_1280/0/1697638273012?e=2147483647&v=beta&t=VZfRq7laTNiSBsjsjcOlBgNHeHxlG4ZFiJAUXPZzK5s"
   },
   {
     "id": 5,
     "name": "Books",
+    "path": "books",
     "image": "https://images.theconversation.com/files/45159/original/rptgtpxd-1396254731.jpg?ixlib=rb-4.1.0&q=45&auto=format&w=754&fit=clip"
   },
   {
     "id": 6,
     "name": "Sports and Outdoors",
+    "path": "sports",
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs4pGKMsi3gf1fWfch1rtk-UhxhWsd1HS-vlDiy9Z6Qg&s"
   },
   {
     "id": 7,
     "name": "Toys & Games",
+    "path": "toys",
     "image": "https://media.licdn.com/dms/image/D4D12AQHwzpRiQSBBuw/article-cover_image-shrink_720_1280/0/1660896887938?e=2147483647&v=beta&t=Crxd22L2c99sjrX2TwBEy_W3wZPZ_dTBWLV4Olf8zOA"
   },
   {
     "id": 8,
     "name": "Automotive",
+    "path": "automotive",
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsrVdeSHaJrQorrWFkaQ0IoMV4YVyxKgLw11vTv19Ogg&s"
   },
   {
     "id": 9,
     "name": "Health and Wellness",
+    "path": "health",
     "image": "https://theprolific7.com/wp-content/uploads/2023/05/Health-and-Wellness.jpg"
   },
   {
     "id": 10,
     "name": "Jewelry",
+    "path": "jewelry",
     "image": "https://www.investopedia.com/thmb/iICoETnrs3knwomzKogX6FDj1zI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/shutterstock_188501252-5bfc3f0d46e0fb00260fe45a.jpg"
   },
   {
     "id": 11,
     "name": "Pet Supplies",
+    "path": "pets",
     "image": "https://t3.ftcdn.net/jpg/03/47/72/64/360_F_347726428_tRuRSMFotT1HfGqstdB2FTIoIxemshfc.jpg"
   },
   {
     "id": 12,
     "name": "Baby & Kids",
+    "path": "baby",
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWb9zvjwwcjO72hgEMMJiPtC6ndf9lsQ_i6nwo_tsUSg&s"
   },
   {
     "id": 13,
     "name": "Office Supplies",
+    "path": "offices",
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJuGNXrX5XiTKTmWPRhJldnhIbXfPGy2BYQk4tlZ8l3A&s"
   },
 
   {
     "id": 30,
     "name": "Watches",
+    "path": "watches",
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqvNlshegjQo0siijp6Y9wBSv6O-u__xoshQf5uCXB7w&s"
   }
 ]

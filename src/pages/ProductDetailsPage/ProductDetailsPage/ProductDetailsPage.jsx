@@ -19,10 +19,12 @@ import toast from 'react-hot-toast';
 import useCartProducts from '../../../hooks/useCartProducts';
 import Swal from 'sweetalert2';
 import useAxiosSecuire from '../../../hooks/useAxiosSecuire';
+import useSingleUserByEmail from '../../../hooks/useSingleUserByEmail';
 
 const ProductDetailsPage = () => {
   const { user } = useContext(AuthContext);
   const product = useLoaderData();
+  const { singleUser } = useSingleUserByEmail(product?.email);
   const { name, image, category, rating, reviews, price } = product;
   const [isFavorite, setIsfavorite] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -259,16 +261,16 @@ const ProductDetailsPage = () => {
             <div className="flex mt-3 gap-2">
               <img
                 className="w-8 h-8 rounded-full"
-                src={user?.photoURL}
+                src={singleUser?.image}
                 alt=""
               />
-              <strong>{user?.displayName}</strong>
+              <strong>{singleUser?.name}</strong>
             </div>
 
             <div className="flex gap-3 mt-2">
               <div>
                 <h4 className="text-xs">Positive Seller Ratings</h4>
-                <span className="text-3xl">{reveiwPercentage}%</span>
+                <span className="text-3xl">{reveiwPercentage || '80'}%</span>
               </div>
               <div>
                 <h4 className="text-xs">Ship on Time</h4>

@@ -38,6 +38,7 @@ const SignUpPage = () => {
               const userInfo = {
                 name,
                 email,
+                image,
               };
               axiosSecuire.put(`/users/${email}`, userInfo).then(data => {
                 console.log(data);

@@ -115,8 +115,6 @@ const Navbar = () => {
     refetch();
   };
 
-  console.log('form navber', isSeller, isAdmin);
-
   return (
     <nav className="w-full sticky top-0 z-20 h-[80px] bg-primary text-white flex justify-between items-center px-2 lg:px-12">
       <div className="flex gap-5 items-center lg:block">

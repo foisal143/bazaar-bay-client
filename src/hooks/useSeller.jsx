@@ -14,7 +14,7 @@ const useSeller = () => {
       return data.data;
     },
   });
-  console.log('from useSeller', user?.email, data?.isSeller);
+
   return { isSeller: data?.isSeller, isLoading };
 };
 

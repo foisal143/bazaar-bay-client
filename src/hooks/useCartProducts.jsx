@@ -15,7 +15,6 @@ const useCartProducts = () => {
     enabled: !loading,
     queryFn: async () => {
       const data = await axiosSecuire.get(`/cart-products/${user?.email}`);
-
       return data.data || [];
     },
   });
