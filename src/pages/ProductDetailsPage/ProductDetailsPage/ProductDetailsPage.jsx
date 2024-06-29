@@ -71,6 +71,7 @@ const ProductDetailsPage = () => {
     if (user) {
       const addedProInfo = {
         ...prod,
+        sellerEmail: prod?.email,
         email: user?.email,
         buyer: user?.displayName,
         productId: product._id,

@@ -73,7 +73,6 @@ const CheckoutForm = ({ price }) => {
       });
 
     if (confirmPaymentError) {
-      console.log('error form confirm payment', confirmPaymentError.message);
       toast.error('payment unsuccessfull!');
       setLoading(false);
     } else {
@@ -81,13 +80,14 @@ const CheckoutForm = ({ price }) => {
         const ordersProdInfo = selectedProducts.map(prod => {
           return {
             ...prod,
+            seller: prod?.sellerEmail,
             status: 'shipped',
             date: new Date(),
             email: user?.email,
           };
         });
+        console.log(ordersProdInfo);
         axiosSecuire.post('/buy-products', ordersProdInfo).then(data => {
-          console.log(data);
           if (data.data.insertedCount > 0) {
             const selectedIds = selectedProducts.map(prod => prod._id);
             console.log(selectedIds);

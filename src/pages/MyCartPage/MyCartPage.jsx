@@ -21,7 +21,7 @@ const MyCartPage = () => {
     if (checked) {
       const cartProdIds = cartProducts.map(prod => prod._id);
       setSelectAllIds(cartProdIds);
-
+      console.log(cartProducts);
       const selecteProds = cartProducts.filter(prod =>
         cartProdIds.includes(prod._id)
       );

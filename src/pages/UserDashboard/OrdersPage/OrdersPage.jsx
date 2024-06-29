@@ -29,7 +29,7 @@ const OrdersPage = () => {
       setFilteredProds(orderProducts);
     }
   }, [orderProducts, status]);
-  console.log(filteredProds);
+
   return (
     <Container>
       <h3 className="title-text mt-3">My Orders</h3>
