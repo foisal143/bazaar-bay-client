@@ -23,6 +23,8 @@ import AdminRoute from '../AdminRoute/AdminRoute';
 import ManageBuyerOrders from '../pages/SellerDashboardsPages/ManageBuyerOrders/ManageBuyerOrders';
 import ManageMyProducts from '../pages/SellerDashboardsPages/ManageMyProducts/ManageMyProducts';
 import AddProducts from '../pages/SellerDashboardsPages/AddProducts/AddProducts';
+import SellerRoute from '../SellerRoute/SellerRoute';
+import SellerStore from '../pages/SellerStore/SellerStore';
 
 const router = createBrowserRouter([
   {
@@ -78,7 +80,15 @@ const router = createBrowserRouter([
       },
       {
         path: '/payment/:price',
-        element: <PaymentPage />,
+        element: (
+          <PrivateRoute>
+            <PaymentPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/visit-seller-store/:email',
+        element: <SellerStore />,
       },
     ],
   },
@@ -162,16 +172,34 @@ const router = createBrowserRouter([
       // seller routes
       {
         path: '/dashboard/manage-seller-orders',
-        element: <ManageBuyerOrders />,
+        element: (
+          <PrivateRoute>
+            <SellerRoute>
+              <ManageBuyerOrders />
+            </SellerRoute>
+          </PrivateRoute>
+        ),
       },
 
       {
         path: '/dashboard/manage-seller-products',
-        element: <ManageMyProducts />,
+        element: (
+          <PrivateRoute>
+            <SellerRoute>
+              <ManageMyProducts />
+            </SellerRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/add-products',
-        element: <AddProducts />,
+        element: (
+          <PrivateRoute>
+            <SellerRoute>
+              <AddProducts />
+            </SellerRoute>
+          </PrivateRoute>
+        ),
       },
     ],
   },

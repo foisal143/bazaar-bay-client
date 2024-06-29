@@ -282,7 +282,9 @@ const ProductDetailsPage = () => {
               </div>
             </div>
             <div className="mt-5 text-center">
-              <Button text="Visit Store"></Button>
+              <Link to={`/visit-seller-store/${singleUser?.email}`}>
+                <Button text="Visit Store"></Button>
+              </Link>
             </div>
           </div>
         </div>
