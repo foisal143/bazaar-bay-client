@@ -20,9 +20,9 @@ const OrdersPage = () => {
         product => product?.status === 'shipped'
       );
       setFilteredProds(shippedProducts);
-    } else if (status === 'recevied') {
+    } else if (status === 'recived') {
       const receviedProds = orderProducts.filter(
-        products => products?.status === 'recevied'
+        products => products?.status === 'recived'
       );
       setFilteredProds(receviedProds);
     } else {
@@ -67,11 +67,11 @@ const OrdersPage = () => {
           </li>
           <li
             className={`${
-              status === 'recevied'
+              status === 'recived'
                 ? 'border-b-4 border-black '
                 : 'border-b-4 border-transparent '
             } cursor-pointer`}
-            onClick={() => setStatus('recevied')}
+            onClick={() => setStatus('recived')}
           >
             To Recive
           </li>

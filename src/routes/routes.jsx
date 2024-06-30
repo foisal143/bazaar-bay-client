@@ -25,6 +25,7 @@ import ManageMyProducts from '../pages/SellerDashboardsPages/ManageMyProducts/Ma
 import AddProducts from '../pages/SellerDashboardsPages/AddProducts/AddProducts';
 import SellerRoute from '../SellerRoute/SellerRoute';
 import SellerStore from '../pages/SellerStore/SellerStore';
+import AddReviewPages from '../pages/UserDashboard/AddReviewPages/AddReviewPages';
 
 const router = createBrowserRouter([
   {
@@ -143,6 +144,16 @@ const router = createBrowserRouter([
             <OrdersPage />
           </PrivateRoute>
         ),
+      },
+      {
+        path: '/dashboard/my-orders/add-review/:productId',
+        element: (
+          <PrivateRoute>
+            <AddReviewPages />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/products/${params.productId}`),
       },
       // admin routes
       {

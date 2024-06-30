@@ -46,7 +46,7 @@ const ReviewsSection = ({ reviews, rating }) => {
               <p>{review?.comment}</p>
               <img
                 className="w-52 h-40"
-                src={review?.image}
+                src={review?.imageUrl}
                 alt="Review images"
               />
             </div>
