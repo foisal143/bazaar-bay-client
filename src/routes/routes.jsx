@@ -88,7 +88,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/visit-seller-store/:email',
-        element: <SellerStore />,
+        element: (
+          <PrivateRoute>
+            <SellerStore />
+          </PrivateRoute>
+        ),
       },
     ],
   },
