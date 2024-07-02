@@ -1,9 +1,23 @@
+import toast from 'react-hot-toast';
 import Container from '../../../components/Container/Container';
 import ManageProductsTableRow from '../../../components/ManageProductsTableRow/ManageProductsTableRow';
+import useAxiosSecuire from '../../../hooks/useAxiosSecuire';
 import useProducts from '../../../hooks/useProducts';
 
 const ManageProducts = () => {
-  const { products } = useProducts();
+  const { products, refetch } = useProducts();
+  const axiosSecuire = useAxiosSecuire();
+  const handlerStatusChanged = async (e, id) => {
+    const status = e.target.value;
+    console.log(status, id);
+    const response = await axiosSecuire.patch(`/update-product-status/${id}`, {
+      status,
+    });
+    if (response.data.modifiedCount > 0) {
+      toast.success(`Product is ${status} successfull!`);
+      refetch();
+    }
+  };
   return (
     <Container>
       <h3 className="title-text mt-5">
@@ -21,7 +35,7 @@ const ManageProducts = () => {
                   <th>Name</th>
                   <th>Price</th>
                   <th>Category</th>
-                  <th>Action</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -30,6 +44,7 @@ const ManageProducts = () => {
                     index={index}
                     product={product}
                     key={product._id}
+                    handlerStatusChanged={handlerStatusChanged}
                   />
                 ))}
               </tbody>

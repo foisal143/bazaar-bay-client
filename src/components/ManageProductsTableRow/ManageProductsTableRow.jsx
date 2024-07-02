@@ -1,7 +1,5 @@
-import { FiEdit } from 'react-icons/fi';
-
-const ManageProductsTableRow = ({ product, index }) => {
-  const { name, image, price, category } = product;
+const ManageProductsTableRow = ({ product, index, handlerStatusChanged }) => {
+  const { name, image, price, category, status, _id } = product;
   return (
     <tr>
       <th>{index + 1}</th>
@@ -18,11 +16,23 @@ const ManageProductsTableRow = ({ product, index }) => {
       <td>{price}</td>
       <td>{category}</td>
 
-      <th>
-        <button title="Edit" className="btn btn-ghost btn-xs">
-          <FiEdit />
-        </button>
-      </th>
+      <td>
+        <select
+          onChange={e => handlerStatusChanged(e, _id)}
+          className={`select-xs ${
+            (status === 'pending' && 'text-yellow-500') ||
+            (status === 'approved' && 'text-green-500') ||
+            (status === 'denied' && 'text-red-500')
+          }`}
+          defaultValue={status}
+          name="status"
+          id="status"
+        >
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="denied">Denied</option>
+        </select>
+      </td>
     </tr>
   );
 };

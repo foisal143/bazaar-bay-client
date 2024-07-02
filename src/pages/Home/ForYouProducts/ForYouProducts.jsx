@@ -1,10 +1,10 @@
 import Button from '../../../components/Button/Button';
 import Container from '../../../components/Container/Container';
 import ProductCard from '../../../components/ProductCard/ProductCard';
-import useProducts from '../../../hooks/useProducts';
+import useApprovedProducts from '../../../hooks/useApprovedProducts';
 
 const ForYouProducts = () => {
-  const { products } = useProducts();
+  const { products } = useApprovedProducts();
 
   return (
     <Container>
